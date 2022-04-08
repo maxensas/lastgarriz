@@ -3,6 +3,9 @@
 [![Release](https://img.shields.io/github/release/maxensas/lastgarriz.svg)](https://github.com/maxensas/lastgarriz/releases/) 
 [![Github all releases](https://img.shields.io/github/downloads/maxensas/lastgarriz/total.svg)](https://GitHub.com/maxensas/lastgarriz/releases/) [![Github latest release](https://img.shields.io/github/downloads/maxensas/lastgarriz/latest/total.svg)](https://GitHub.com/maxensas/lastgarriz/releases/)
 
+### What is Lastgarriz?
+Lastgarriz is a simple tool that offers useful features during your Hell Let Loose gaming sessions without interacting with it in any way !
+
 ## Main features provided by Lastgarriz :
 * Quick access to settings to modify hotkeys.
 * An overlay to enable fast conversions for in-game Artillery usage : distance meters to elevation milliradians.
