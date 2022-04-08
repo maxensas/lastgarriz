@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Assets\Img\AppIcon.ico</ApplicationIcon>
+    <Copyright>Copyright © 2022 maxensas</Copyright>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <PackageProjectUrl>https://github.com/maxensas/lastgarriz</PackageProjectUrl>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Platforms>AnyCPU</Platforms>
+    <Authors>Lastgarriz</Authors>
+    <Company>Lastgarriz</Company>
+    <FileVersion>0.1.0.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>2</WarningLevel>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <TrimmerRootAssembly Include="System.Net.Security" />
+    <TrimmerRootAssembly Include="System.Security" />
+    <TrimmerRootAssembly Include="System.Globalization" />
+    <TrimmerRootAssembly Include="System.Threading.Tasks" />
+    <TrimmerRootAssembly Include="System" />
+    <TrimmerRootAssembly Include="System.IO.FileSystem" />
+    <TrimmerRootAssembly Include="System.Collections" />
+    <TrimmerRootAssembly Include="System.Xml.Linq" />
+    <TrimmerRootAssembly Include="System.Runtime" />
+    <TrimmerRootAssembly Include="System.Runtime.Extensions" />
+    <TrimmerRootAssembly Include="System.Diagnostics.Debug" />
+    <TrimmerRootAssembly Include="System.Core" />
+    <TrimmerRootAssembly Include="System.Reflection" />
+    <TrimmerRootAssembly Include="netstandard" />
+    <TrimmerRootAssembly Include="mscorlib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
+  </ItemGroup>
+<ItemGroup>
+    <Content Include="Assets\Data\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <!--<CopyToPublishDirectory>Always</CopyToPublishDirectory>-->
+      <!--<CopyToOutputDirectory>Always</CopyToOutputDirectory>-->
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Img\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\Img\Garrison.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--Maybe move to new library .NET6 utf8 json if good perf -->
+    <Reference Include="Utf8Json">
+      <HintPath>Resources\Utf8Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

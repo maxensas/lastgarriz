@@ -1,0 +1,7 @@
+.NET6 :
+dotnet publish Lastgarriz -c Release -r win-x64 --self-contained --output ./Lastgarriz/bin/Publish/Lastgarriz -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:PublishProtocol=FileSystem
+
+-p:IncludeNativeLibrariesForSelfExtract=true
+
+.NET5 : 
+dotnet publish Lastgarriz -c Release -r win-x64 --output ./Lastgarriz/bin/Publish/Lastgarriz -p:PublishSingleFile=true -p:PublishTrimmed=true -p:TrimMode=link -p:ILLinkWarningLevel=4 -p:PublishProtocol=FileSystem

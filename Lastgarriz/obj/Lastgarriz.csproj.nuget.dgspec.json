@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\Lastgarriz.csproj": {}
+  },
+  "projects": {
+    "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\Lastgarriz.csproj": {
+      "version": "0.1.0",
+      "restore": {
+        "projectUniqueName": "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\Lastgarriz.csproj",
+        "projectName": "Lastgarriz",
+        "projectPath": "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\Lastgarriz.csproj",
+        "packagesPath": "C:\\Users\\Mike\\.nuget\\packages\\",
+        "outputPath": "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Mike\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "Hardcodet.NotifyIcon.Wpf": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "MaterialDesignExtensions": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
