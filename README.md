@@ -22,4 +22,4 @@ Lastgarriz does not use any APM service to collect telemetry or metrics.
 Lastgarriz has no database and does not collect personal data or identifier for Lastgarriz or 3rd party tool outside the features provided.
 
 ## Screenshots made in v0.1.0
-* Artillery converter :<details><summary>Enlarge or shrink</summary><img src="https://user-images.githubusercontent.com/62154281/162469233-b14671fd-c856-4b33-b3bf-6c35a09c0630.png" width="20%" height="20%"></details>
+* Artillery converter :<img src="https://user-images.githubusercontent.com/62154281/162469233-b14671fd-c856-4b33-b3bf-6c35a09c0630.png" width="20%" height="20%">
