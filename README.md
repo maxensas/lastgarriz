@@ -18,7 +18,8 @@ This program is free, open-source, licenced under BSD-3-Clause License and still
 * All features have a deep explain on themselves, just leave the mouse hover until a tooltip appears.
 
 ### Third party tools usage :
-Lastgarriz isn't affiliated with or endorsed by Black matter or Team17 in any way.
+* About overlays : in order to work, you need to run your game in windowed or borderless full screen.
+* Lastgarriz isn't affiliated with or endorsed by Black matter or Team17 in any way.
 
 ### Privacy policy for Lastgarriz
 Lastgarriz does not use any APM service to collect telemetry or metrics.
