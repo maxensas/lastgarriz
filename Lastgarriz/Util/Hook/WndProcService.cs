@@ -2,11 +2,7 @@
 using Lastgarriz.Util.Interop;
 using Lastgarriz.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -35,24 +31,26 @@ namespace Lastgarriz.Util.Hook
             TimerRegister.Start();
         }
 
-        internal static WndProcService GetInstance()
+        internal static WndProcService Instance
         {
-            if (instance == null)
+            get
             {
-                lock (Instancelock)
+                if (instance == null)
                 {
-                    if (instance == null)
+                    lock (Instancelock)
                     {
-                        instance = new WndProcService();
+                        if (instance == null)
+                        {
+                            instance = new WndProcService();
+                        }
                     }
                 }
+                return instance;
             }
-            return instance;
         }
 
         private void RegisterTimer_Tick(object sender, EventArgs e) // WHEN USING SHORTCUTS : ENDLESS RUNNING PROCESS
-        {
-            
+        { 
             if (Native.GetForegroundWindow().Equals(Native.FindWindow(Strings.HllClass, Strings.HllCaption))) // IF you have HLL game window in focus
             {
                 if (!Global.IsHotKey) HotKey.InstallRegisterHotKey();
@@ -61,7 +59,6 @@ namespace Lastgarriz.Util.Hook
             {
                 if (Global.IsHotKey) HotKey.RemoveRegisterHotKey(false);
             }
-            
         }
 
         private void ProcessMessage(Message message)
@@ -82,7 +79,7 @@ namespace Lastgarriz.Util.Hook
                     string fonctionLower = shortcut.Fonction.ToLowerInvariant();
                     try
                     {
-                        if (Native.GetForegroundWindow().Equals(findHwnd) || DataManager.GetInstance().Config.Options.DevMode) // Only if HLL got the focus or in developer mode
+                        if (Native.GetForegroundWindow().Equals(findHwnd) || DataManager.Instance.Config.Options.DevMode) // Only if HLL got the focus or in developer mode
                         {
                             if (fonctionLower is Strings.Feature.ARTILLERY_USGER or Strings.Feature.ARTILLERY_RU)
                             {

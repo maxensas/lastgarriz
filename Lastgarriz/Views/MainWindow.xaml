@@ -6,10 +6,11 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:Lastgarriz"
         xmlns:t="clr-namespace:Lastgarriz.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         d:DataContext="{d:DesignInstance Type=t:MainViewModel}"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen"
         Title="Lastgarriz" AllowsTransparency="True" Background="Transparent" Opacity="1" Width="350" Height="364"
-        Loaded="Window_Loaded" Closed="Window_Closed" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing">
+        Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing">
     <Window.RenderTransform>
         <TransformGroup>
             <ScaleTransform x:Name="WindowScaleTransform"/>
@@ -20,7 +21,11 @@
 
     </Window.Resources>
     <!--<t:TranslationViewModel x:Key="loc"/>-->
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding Commands.ClosedWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="0,0,0,0">
         <Grid.Background>
             <SolidColorBrush Color="#FF444444" Opacity="0.8"/>

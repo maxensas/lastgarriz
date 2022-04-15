@@ -1,5 +1,4 @@
 ﻿using Lastgarriz.Util.Hook;
-using Lastgarriz.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -34,26 +33,19 @@ namespace Lastgarriz.Util
             { Keys.NumPad5, 5 }, { Keys.NumPad6, 6 }, { Keys.NumPad7, 7 }, { Keys.NumPad8, 8 }, { Keys.NumPad9, 9 }
         };
 
-        internal static List<Keys> ValidateKeyList { get; private set; } = new()
+        internal static List<Keys> ModifierKeyList { get; private set; } = new()
         {
-            Keys.LShiftKey, Keys.RShiftKey, Keys.LControlKey, Keys.RControlKey
+            Keys.LShiftKey, Keys.RShiftKey, Keys.LControlKey, Keys.RControlKey, Keys.LWin, Keys.RWin, Keys.LMenu, Keys.RMenu // menu = alt
         };
 
-        internal enum Client : ushort
+        internal static void InitGlobals()
         {
-            Default = 0x00
-        }
-
-        internal static void InitGlobals(/*MainViewModel vm*/)
-        {
-            //Vm = vm;
-
             Terminate = false;
             IsHotKey = false;
             HotkeyProcBlock = false;
             FirstRegisterHK = true;
 
-            DataJson = DataManager.GetInstance();
+            DataJson = DataManager.Instance;
 
             if (!DataJson.InitSettings())
             {
@@ -62,7 +54,7 @@ namespace Lastgarriz.Util
                 return;
             }
 
-            WndService = WndProcService.GetInstance();
+            WndService = WndProcService.Instance;
         }
     }
 }

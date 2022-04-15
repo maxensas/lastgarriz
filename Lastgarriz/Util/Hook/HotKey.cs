@@ -1,6 +1,9 @@
 ﻿using Lastgarriz.Models.Serializable;
 using Lastgarriz.Util.Interop;
+using Lastgarriz.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Lastgarriz.Util.Hook
@@ -25,7 +28,7 @@ namespace Lastgarriz.Util.Hook
                 {
                     if ((Strings.Feature.Unregisterable.Contains(shortcut.Fonction.ToLowerInvariant()) && !Global.DataJson.Config.Options.DevMode) || Global.FirstRegisterHK)
                     {
-                        if (shortcut.Enable)
+                        if (shortcut.Enable && shortcut.Value is not Strings.KEYLOG)
                         {
                             Native.RegisterHotKey(Global.HookHwnd, 10001 + i, Convert.ToUInt32(shortcut.Modifier), (uint)Math.Abs(shortcut.Keycode));
                         }
@@ -42,14 +45,6 @@ namespace Lastgarriz.Util.Hook
             {
                 Global.FirstRegisterHK = true;
             }
-            //bool checkStat = true;
-            /*
-            bool checkStat = false;
-            if (GetStatus().Contains("Patron, you can use extra features for") && GetStatus().Contains("Thanks again for your support !"))
-            {
-                checkStat = true;
-            }
-            */
 
             for (int i = 0; i < Global.DataJson.Config.Shortcuts.Length; i++)
             {
@@ -58,7 +53,7 @@ namespace Lastgarriz.Util.Hook
                 {
                     if ((Strings.Feature.Unregisterable.Contains(shortcut.Fonction.ToLowerInvariant()) && !Global.DataJson.Config.Options.DevMode) || reInit)
                     {
-                        if (shortcut.Enable)
+                        if (shortcut.Enable && shortcut.Value is not Strings.KEYLOG)
                         {
                             Native.UnregisterHotKey(Global.HookHwnd, 10001 + i);
                         }
@@ -70,17 +65,20 @@ namespace Lastgarriz.Util.Hook
         internal static int GetModifier(string data)
         {
             int mod = MOD_NONE;
-            if (data.ToLowerInvariant().Contains(System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(ModifierKeys.Control).ToLowerInvariant(), StringComparison.Ordinal))
+            if (data.Contains('+', StringComparison.Ordinal))
             {
-                mod |= MOD_CONTROL;
-            }
-            if (data.ToLowerInvariant().Contains(System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(ModifierKeys.Alt).ToLowerInvariant(), StringComparison.Ordinal))
-            {
-                mod |= MOD_ALT;
-            }
-            if (data.ToLowerInvariant().Contains(System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(ModifierKeys.Shift).ToLowerInvariant(), StringComparison.Ordinal))
-            {
-                mod |= MOD_SHIFT;
+                if (data.ToLowerInvariant().Contains(System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(ModifierKeys.Control).ToLowerInvariant(), StringComparison.Ordinal))
+                {
+                    mod |= MOD_CONTROL;
+                }
+                if (data.ToLowerInvariant().Contains(System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(ModifierKeys.Alt).ToLowerInvariant(), StringComparison.Ordinal))
+                {
+                    mod |= MOD_ALT;
+                }
+                if (data.ToLowerInvariant().Contains(System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(ModifierKeys.Shift).ToLowerInvariant(), StringComparison.Ordinal))
+                {
+                    mod |= MOD_SHIFT;
+                }
             }
             return mod;
         }
@@ -98,6 +96,106 @@ namespace Lastgarriz.Util.Hook
             }
 
             return returnVal;
+        }
+
+        internal static void SetHotKey(HotkeyViewModel vm, KeyEventArgs e, bool canUseModAsHotKey)
+        {
+            var actualKey = GetVirtualKey(e);
+
+            var ignoreKeys = canUseModAsHotKey 
+                ? new[] { System.Windows.Forms.Keys.LWin, System.Windows.Forms.Keys.RWin } 
+                : Global.ModifierKeyList.ToArray();
+
+            bool isModKey = Global.ModifierKeyList.Contains(actualKey);
+
+            if (e.IsDown && !ignoreKeys.Contains(actualKey))
+            {
+                var modifiers = new List<ModifierKeys>();
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && !isModKey)
+                {
+                    modifiers.Add(ModifierKeys.Control);
+                }
+
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) && !isModKey)
+                {
+                    modifiers.Add(ModifierKeys.Alt);
+                }
+
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && !isModKey)
+                {
+                    modifiers.Add(ModifierKeys.Shift);
+                }
+
+                string modifStr = System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(Keyboard.Modifiers);
+                string hotKey = modifiers.Count == 0
+                    ? string.Format("{0}", actualKey)
+                    : string.Format("{0}+{1}", modifStr, actualKey);
+
+                if (VerifyHotKey(hotKey))
+                {
+                    if (hotKey.Length == 2 && hotKey.StartsWith('D')) // D0 to D9
+                    {
+                        hotKey = hotKey.Replace("D", string.Empty);
+                    }
+                    vm.Hotkey = hotKey;
+                }
+            }
+
+            e.Handled = true;
+        }
+
+        private static System.Windows.Forms.Keys GetVirtualKey(KeyEventArgs e)
+        {
+            var key = e.Key switch
+            {
+                Key.System => e.SystemKey,
+                Key.ImeProcessed => e.ImeProcessedKey,
+                Key.DeadCharProcessed => e.DeadCharProcessedKey,
+                _ => e.Key,
+            };
+            return (System.Windows.Forms.Keys)KeyInterop.VirtualKeyFromKey(key);
+        }
+
+        private static bool VerifyHotKey(string hotKeyText)
+        {
+            if (hotKeyText.EndsWith('+')) // cannot set '+' as hotkey : ok for OemPlus & NumpadPlus
+            {
+                return false;
+            }
+
+            System.ComponentModel.TypeConverter converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(System.Windows.Forms.Keys)); // old System.Windows.Forms.Keys
+            try
+            {
+                var returnKey = (int)converter.ConvertFromInvariantString(hotKeyText);
+                return true;
+            }
+            catch // exception not used
+            {
+                return false;
+            }
+        }
+
+        internal static List<System.Windows.Forms.Keys> GetFeatureKeys(string feature)
+        {
+            List<System.Windows.Forms.Keys> returnList = new();
+            for (int i = 0; i < Global.DataJson.Config.Shortcuts.Length; i++)
+            {
+                ConfigShortcut shortcut = Global.DataJson.Config.Shortcuts[i];
+                if (shortcut.Keycode > 0 && shortcut.Value?.Length > 0)
+                {
+                    if (feature == shortcut.Fonction.ToLowerInvariant())
+                    {
+                        returnList.Add((System.Windows.Forms.Keys)shortcut.Keycode);
+                        break;
+                    }
+                }
+            }
+
+            if (returnList.Count == 0)
+            {
+                returnList.Add(System.Windows.Forms.Keys.None);
+            }
+            return returnList;
         }
     }
 }

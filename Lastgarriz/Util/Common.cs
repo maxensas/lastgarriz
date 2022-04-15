@@ -12,7 +12,6 @@ namespace Lastgarriz.Util
     {
         internal static string GetInnerExceptionMessages(Exception exp)
         {
-            //string message = string.Empty;
             StringBuilder sbMessage = new();
             Exception innerException = exp;
             int watchdog = 0;
@@ -76,6 +75,10 @@ namespace Lastgarriz.Util
 
         internal static bool IsKeyPushedDown(Keys vKey)
         {
+            if (Global.ModifierKeyList.Contains(vKey))
+            {
+                return 0 != (Native.GetAsyncKeyState((int)vKey));
+            }
             return 0 != (Native.GetAsyncKeyState((int)vKey) & 0x8000);
         }
         /*

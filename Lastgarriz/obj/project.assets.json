@@ -1,0 +1,334 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0-windows7.0": {
+      "Hardcodet.NotifyIcon.Wpf/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0-windows7.0/Hardcodet.NotifyIcon.Wpf.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Hardcodet.NotifyIcon.Wpf.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "MaterialDesignColors/2.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/MaterialDesignColors.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignColors.dll": {}
+        }
+      },
+      "MaterialDesignExtensions/3.3.0": {
+        "type": "package",
+        "dependencies": {
+          "MaterialDesignColors": "1.2.7",
+          "MaterialDesignThemes": "3.2.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/MaterialDesignExtensions.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignExtensions.dll": {}
+        },
+        "resource": {
+          "lib/netcoreapp3.1/Ru/MaterialDesignExtensions.resources.dll": {
+            "locale": "Ru"
+          },
+          "lib/netcoreapp3.1/ar-DZ/MaterialDesignExtensions.resources.dll": {
+            "locale": "ar-DZ"
+          },
+          "lib/netcoreapp3.1/cs-CZ/MaterialDesignExtensions.resources.dll": {
+            "locale": "cs-CZ"
+          },
+          "lib/netcoreapp3.1/cs/MaterialDesignExtensions.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/netcoreapp3.1/de/MaterialDesignExtensions.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netcoreapp3.1/fr-FR/MaterialDesignExtensions.resources.dll": {
+            "locale": "fr-FR"
+          },
+          "lib/netcoreapp3.1/fr/MaterialDesignExtensions.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netcoreapp3.1/pt-BR/MaterialDesignExtensions.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netcoreapp3.1/pt/MaterialDesignExtensions.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/netcoreapp3.1/ru-ru/MaterialDesignExtensions.resources.dll": {
+            "locale": "ru-ru"
+          },
+          "lib/netcoreapp3.1/uz-Latn-UZ/MaterialDesignExtensions.resources.dll": {
+            "locale": "uz-Latn-UZ"
+          }
+        }
+      },
+      "MaterialDesignThemes/4.4.0": {
+        "type": "package",
+        "dependencies": {
+          "MaterialDesignColors": "[2.0.5, 3.0.0)"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll": {}
+        },
+        "build": {
+          "build/MaterialDesignThemes.targets": {}
+        }
+      },
+      "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      }
+    }
+  },
+  "libraries": {
+    "Hardcodet.NotifyIcon.Wpf/1.1.0": {
+      "sha512": "FFEkdRSidMrbMfQVwhCzq6KtSyR1qQojqtiUrkCyjnOOuMf7W3TNQkzFnBBxYxFe7uLk5mz7M38wFh1qdWyfvg==",
+      "type": "package",
+      "path": "hardcodet.notifyicon.wpf/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "hardcodet.notifyicon.wpf.1.1.0.nupkg.sha512",
+        "hardcodet.notifyicon.wpf.nuspec",
+        "icon.png",
+        "lib/net45/Hardcodet.NotifyIcon.Wpf.dll",
+        "lib/net45/Hardcodet.NotifyIcon.Wpf.xml",
+        "lib/net462/Hardcodet.NotifyIcon.Wpf.dll",
+        "lib/net462/Hardcodet.NotifyIcon.Wpf.xml",
+        "lib/net472/Hardcodet.NotifyIcon.Wpf.dll",
+        "lib/net472/Hardcodet.NotifyIcon.Wpf.xml",
+        "lib/net5.0-windows7.0/Hardcodet.NotifyIcon.Wpf.dll",
+        "lib/net5.0-windows7.0/Hardcodet.NotifyIcon.Wpf.xml",
+        "lib/netcoreapp3.1/Hardcodet.NotifyIcon.Wpf.dll",
+        "lib/netcoreapp3.1/Hardcodet.NotifyIcon.Wpf.xml"
+      ]
+    },
+    "MaterialDesignColors/2.0.5": {
+      "sha512": "y5gEo4wo46CTiaTOiROPoKqTW5LJAu0g6b+yd0MslS3Fppu6hMheOIIkrmvvpFPbC4jbgAwakYYCzPKWbHC4LQ==",
+      "type": "package",
+      "path": "materialdesigncolors/2.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/MaterialDesignColors.Icon.png",
+        "lib/net452/MaterialDesignColors.dll",
+        "lib/net452/MaterialDesignColors.pdb",
+        "lib/netcoreapp3.1/MaterialDesignColors.dll",
+        "lib/netcoreapp3.1/MaterialDesignColors.pdb",
+        "materialdesigncolors.2.0.5.nupkg.sha512",
+        "materialdesigncolors.nuspec"
+      ]
+    },
+    "MaterialDesignExtensions/3.3.0": {
+      "sha512": "dlxWtdrMH8aHNib3dWJhNQ/nNiA2b/CNvr90w/5KB6erTisuTpyYVx2l2+UGCZvwhSX5mHTHQYHfjgAKbDrgjg==",
+      "type": "package",
+      "path": "materialdesignextensions/3.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.txt",
+        "Notice.txt",
+        "Readme.md",
+        "lib/net45/MaterialDesignExtensions.dll",
+        "lib/net45/MaterialDesignExtensions.xml",
+        "lib/net45/Ru/MaterialDesignExtensions.resources.dll",
+        "lib/net45/ar-DZ/MaterialDesignExtensions.resources.dll",
+        "lib/net45/cs-CZ/MaterialDesignExtensions.resources.dll",
+        "lib/net45/cs/MaterialDesignExtensions.resources.dll",
+        "lib/net45/de/MaterialDesignExtensions.resources.dll",
+        "lib/net45/fr-FR/MaterialDesignExtensions.resources.dll",
+        "lib/net45/fr/MaterialDesignExtensions.resources.dll",
+        "lib/net45/pt-BR/MaterialDesignExtensions.resources.dll",
+        "lib/net45/pt/MaterialDesignExtensions.resources.dll",
+        "lib/net45/ru-ru/MaterialDesignExtensions.resources.dll",
+        "lib/net45/uz-Latn-UZ/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/MaterialDesignExtensions.dll",
+        "lib/netcoreapp3.1/MaterialDesignExtensions.xml",
+        "lib/netcoreapp3.1/Ru/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/ar-DZ/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/cs-CZ/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/cs/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/de/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/fr-FR/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/fr/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/pt-BR/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/pt/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/ru-ru/MaterialDesignExtensions.resources.dll",
+        "lib/netcoreapp3.1/uz-Latn-UZ/MaterialDesignExtensions.resources.dll",
+        "materialdesignextensions.3.3.0.nupkg.sha512",
+        "materialdesignextensions.nuspec"
+      ]
+    },
+    "MaterialDesignThemes/4.4.0": {
+      "sha512": "VdO8WvCYB6A6cDd181HLVgORn2IeNDMTlGxf2x91S1xsK6JYY3L1+WYxrkLJm4XEuvI0mY0biLM8MS6go+PQcw==",
+      "type": "package",
+      "path": "materialdesignthemes/4.4.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/MaterialDesignThemes.targets",
+        "build/Resources/Roboto/Roboto-Black.ttf",
+        "build/Resources/Roboto/Roboto-BlackItalic.ttf",
+        "build/Resources/Roboto/Roboto-Bold.ttf",
+        "build/Resources/Roboto/Roboto-BoldItalic.ttf",
+        "build/Resources/Roboto/Roboto-Italic.ttf",
+        "build/Resources/Roboto/Roboto-Light.ttf",
+        "build/Resources/Roboto/Roboto-LightItalic.ttf",
+        "build/Resources/Roboto/Roboto-Medium.ttf",
+        "build/Resources/Roboto/Roboto-MediumItalic.ttf",
+        "build/Resources/Roboto/Roboto-Regular.ttf",
+        "build/Resources/Roboto/Roboto-Thin.ttf",
+        "build/Resources/Roboto/Roboto-ThinItalic.ttf",
+        "build/Resources/Roboto/RobotoCondensed-Bold.ttf",
+        "build/Resources/Roboto/RobotoCondensed-BoldItalic.ttf",
+        "build/Resources/Roboto/RobotoCondensed-Italic.ttf",
+        "build/Resources/Roboto/RobotoCondensed-Light.ttf",
+        "build/Resources/Roboto/RobotoCondensed-LightItalic.ttf",
+        "build/Resources/Roboto/RobotoCondensed-Regular.ttf",
+        "images/MaterialDesignThemes.Icon.png",
+        "lib/net452/MaterialDesignThemes.Wpf.dll",
+        "lib/net452/MaterialDesignThemes.Wpf.pdb",
+        "lib/net452/MaterialDesignThemes.Wpf.xml",
+        "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll",
+        "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.pdb",
+        "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.xml",
+        "materialdesignthemes.4.4.0.nupkg.sha512",
+        "materialdesignthemes.nuspec",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
+      "sha512": "8PZKqw9QOcu42xk8puY4P1+EXHL9YGOR9b7qhaYx5cILHul456H073tj99vyPcCt0W0781T9RwHqkx507ZyUpQ==",
+      "type": "package",
+      "path": "microsoft.xaml.behaviors.wpf/1.1.39",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Design/Microsoft.Xaml.Behaviors.Design.dll",
+        "lib/net45/Microsoft.Xaml.Behaviors.dll",
+        "lib/net45/Microsoft.Xaml.Behaviors.pdb",
+        "lib/net45/Microsoft.Xaml.Behaviors.xml",
+        "lib/net5.0-windows7.0/Design/Microsoft.Xaml.Behaviors.DesignTools.dll",
+        "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll",
+        "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.pdb",
+        "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.xml",
+        "lib/netcoreapp3.1/Design/Microsoft.Xaml.Behaviors.DesignTools.dll",
+        "lib/netcoreapp3.1/Microsoft.Xaml.Behaviors.dll",
+        "lib/netcoreapp3.1/Microsoft.Xaml.Behaviors.pdb",
+        "lib/netcoreapp3.1/Microsoft.Xaml.Behaviors.xml",
+        "microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+        "microsoft.xaml.behaviors.wpf.nuspec",
+        "tools/Install.ps1"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0-windows7.0": [
+      "Hardcodet.NotifyIcon.Wpf >= 1.1.0",
+      "MaterialDesignExtensions >= 3.3.0",
+      "MaterialDesignThemes >= 4.4.0",
+      "Microsoft.Xaml.Behaviors.Wpf >= 1.1.39"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Mike\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "0.1.1",
+    "restore": {
+      "projectUniqueName": "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\Lastgarriz.csproj",
+      "projectName": "Lastgarriz",
+      "projectPath": "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\Lastgarriz.csproj",
+      "packagesPath": "C:\\Users\\Mike\\.nuget\\packages\\",
+      "outputPath": "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Mike\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0-windows7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
+        "dependencies": {
+          "Hardcodet.NotifyIcon.Wpf": {
+            "target": "Package",
+            "version": "[1.1.0, )"
+          },
+          "MaterialDesignExtensions": {
+            "target": "Package",
+            "version": "[3.3.0, )"
+          },
+          "MaterialDesignThemes": {
+            "target": "Package",
+            "version": "[4.4.0, )"
+          },
+          "Microsoft.Xaml.Behaviors.Wpf": {
+            "target": "Package",
+            "version": "[1.1.39, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:t="clr-namespace:Lastgarriz.ViewModels"
         xmlns:local="clr-namespace:Lastgarriz.Views"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         d:DataContext="{d:DesignInstance Type=t:ArtilleryViewModel}"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -17,11 +18,16 @@
         
         mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="None"
         Title="Artillery" Height="60" Width="130" AllowsTransparency="True" Topmost="True" RenderTransformOrigin="0.5,0.5"
-        MouseLeftButtonDown="DragWindow" Activated="Window_Activated" Closing="Window_Closing" BorderBrush="#d2cfcc" BorderThickness="1">
+        MouseLeftButtonDown="DragWindow" Activated="Window_Activated" BorderBrush="#d2cfcc" BorderThickness="1">
     <!-- WindowStartupLocation="CenterScreen"-->
     <Window.Background>
         <SolidColorBrush Color="Black" Opacity="0.1"/>
     </Window.Background>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Commands.CloseArtilleryWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Height="60" Width="130">
         <TextBlock Text="{Binding Title}" d:Text="Title" FontSize="10" FontWeight="Bold" TextAlignment="Center" Margin="0,2,0,0" Foreground="#d2cfcc"/>
         <Grid Width="130" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,15,0,0">

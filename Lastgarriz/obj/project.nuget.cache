@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "uNxBu6KkeOBWpQH705q1Jyy/mSiAhNqW/COdvxmwkHjX4UnsXeLRdpFcL8ilaxELWJVsudQiweC0+wTrGi/oig==",
+  "success": true,
+  "projectFilePath": "D:\\Workspaces\\github\\lastgarriz\\Lastgarriz\\Lastgarriz.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mike\\.nuget\\packages\\hardcodet.notifyicon.wpf\\1.1.0\\hardcodet.notifyicon.wpf.1.1.0.nupkg.sha512",
+    "C:\\Users\\Mike\\.nuget\\packages\\materialdesigncolors\\2.0.5\\materialdesigncolors.2.0.5.nupkg.sha512",
+    "C:\\Users\\Mike\\.nuget\\packages\\materialdesignextensions\\3.3.0\\materialdesignextensions.3.3.0.nupkg.sha512",
+    "C:\\Users\\Mike\\.nuget\\packages\\materialdesignthemes\\4.4.0\\materialdesignthemes.4.4.0.nupkg.sha512",
+    "C:\\Users\\Mike\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -10,6 +10,7 @@ namespace Lastgarriz.Util
         internal static readonly string[] Culture = { "en-US", "ko-KR", "fr-FR", "es-ES", "de-DE", "pt-BR", "ru-RU", "th-TH", "zh-TW", "zh-CN" };
 
         internal static readonly string VersionUrl = "https://raw.githubusercontent.com/maxensas/lastgarriz/master/VERSION";
+        internal const string KEYLOG = "keylog";
 
         internal static class File
         {
@@ -29,6 +30,7 @@ namespace Lastgarriz.Util
             internal const string CONFIG = "config";
             internal const string ARTILLERY_USGER = "artillery_usger";
             internal const string ARTILLERY_RU = "artillery_ru";
+            internal const string ARTILLERY_VALIDATE = "artillery_validate";
             internal const string AUTOQUEUE = "autoqueue";
             internal const string BROWSER = "browser";
 
@@ -37,7 +39,7 @@ namespace Lastgarriz.Util
 
         internal static class Net
         {
-            internal static readonly string UserAgent = "GarrisonHelper/" + Common.GetFileVersion() + " (contact: x_toset_x@gmail.com)";
+            internal static readonly string UserAgent = "Lastgarriz/" + Common.GetFileVersion() + " (contact: x_toset_x@gmail.com)";
         }
     }
 }

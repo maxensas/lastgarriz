@@ -1,4 +1,5 @@
-﻿using Lastgarriz.ViewModels.Command;
+﻿using Lastgarriz.Util;
+using Lastgarriz.ViewModels.Command;
 
 namespace Lastgarriz.ViewModels
 {
@@ -9,6 +10,8 @@ namespace Lastgarriz.ViewModels
         public MainViewModel()
         {
             Commands = new(this);
+
+            Global.InitGlobals(/*ViewModel*/);
         }
     }
 }

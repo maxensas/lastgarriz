@@ -54,7 +54,6 @@ namespace Lastgarriz.ViewModels
             catch // exception not used
             {
                 System.Windows.Forms.KeysConverter kc = new();
-
                 returnKey = keycode;
                 vm.Hotkey = modRet + kc.ConvertToString(keycode);
             }
@@ -94,6 +93,10 @@ namespace Lastgarriz.ViewModels
                         case Strings.Feature.ARTILLERY_RU:
                             Features.Artillery_ru.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
                             Features.Artillery_ru.IsEnable = item.Enable;
+                            break;
+                        case Strings.Feature.ARTILLERY_VALIDATE:
+                            Features.Artillery_validate.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
+                            Features.Artillery_validate.IsEnable = item.Enable;
                             break;
                         case Strings.Feature.AUTOQUEUE:
                             Features.Autoqueue.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
@@ -140,6 +143,11 @@ namespace Lastgarriz.ViewModels
                             item.Keycode = VerifyKeycode(Features.Artillery_ru, item.Keycode);
                             item.Enable = Features.Artillery_ru.IsEnable;
                             break;
+                        case Strings.Feature.ARTILLERY_VALIDATE:
+                            item.Modifier = HotKey.GetModifier(Features.Artillery_validate.Hotkey);
+                            item.Keycode = VerifyKeycode(Features.Artillery_validate, item.Keycode);
+                            item.Enable = Features.Artillery_validate.IsEnable;
+                            break;
                         case Strings.Feature.AUTOQUEUE:
                             item.Modifier = HotKey.GetModifier(Features.Autoqueue.Hotkey);
                             item.Keycode = VerifyKeycode(Features.Autoqueue, item.Keycode);
@@ -164,9 +172,9 @@ namespace Lastgarriz.ViewModels
             string configToSave = Json.Serialize<ConfigData>(Config);
 
             HotKey.RemoveRegisterHotKey(true);
-            DataManager.GetInstance().Save_Config(configToSave, "cfg");
+            DataManager.Instance.Save_Config(configToSave, "cfg");
 
-            if (!DataManager.GetInstance().InitSettings())
+            if (!DataManager.Instance.InitSettings())
             {
                 MessageBox.Show("Closing application...", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 Application.Current.Shutdown();

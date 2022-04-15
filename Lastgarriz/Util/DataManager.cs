@@ -18,19 +18,22 @@ namespace Lastgarriz.Util
 
         }
 
-        internal static DataManager GetInstance()
+        internal static DataManager Instance
         {
-            if (instance == null)
+            get
             {
-                lock (Instancelock)
+                if (instance == null)
                 {
-                    if (instance == null)
+                    lock (Instancelock)
                     {
-                        instance = new DataManager();
+                        if (instance == null)
+                        {
+                            instance = new DataManager();
+                        }
                     }
                 }
+                return instance;
             }
-            return instance;
         }
 
         internal bool InitSettings()

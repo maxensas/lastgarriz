@@ -1,4 +1,5 @@
 ﻿using Lastgarriz.Models;
+using Lastgarriz.Util;
 using Lastgarriz.ViewModels.Command;
 
 namespace Lastgarriz.ViewModels
@@ -22,6 +23,8 @@ namespace Lastgarriz.ViewModels
             Commands = new(this);
             Metrics = new(rusianMetrics);
             Title = rusianMetrics ? "RU metric converter" : "US/GER metric converter";
+
+            TaskManager.StartCatcherTask(this);
         }
     }
 }

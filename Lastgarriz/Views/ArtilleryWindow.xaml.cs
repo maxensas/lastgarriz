@@ -19,10 +19,12 @@ namespace Lastgarriz.Views
 
             ViewModel = new(rusianMetrics);
             DataContext = ViewModel;
-            TaskManager.StartCatcherTask(ViewModel);
-
+            /*
             Left = SystemParameters.PrimaryScreenWidth / 1.215; // 1920p : 1580
             Top = SystemParameters.PrimaryScreenHeight / 1.195; // 1080p : 904
+            */
+            Left = (SystemParameters.PrimaryScreenWidth + Width) / 1.2975; // 1920p : 1579.96
+            Top = (SystemParameters.PrimaryScreenHeight + Height) / 1.261; // 1080p : 904.044
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -37,11 +39,6 @@ namespace Lastgarriz.Views
             var top = Top;
             var left = Left;
             */
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            TaskManager.StopCatcherTask();
         }
     }
 }

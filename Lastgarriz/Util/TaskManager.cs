@@ -1,17 +1,18 @@
-﻿using Lastgarriz.ViewModels;
+﻿using Lastgarriz.Util.Hook;
+using Lastgarriz.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using static Lastgarriz.Util.Global;
 
 namespace Lastgarriz.Util
 {
-    internal static class TaskManager
+    internal static class TaskManager // light
     {
-        internal static Task KeystrokeCatcherTask { get; private set; }
+        internal static Task UpdateCheckerTask { get; private set; } // only last task launched
+        internal static Task KeystrokeCatcherTask { get; private set; } // only last task launched
         internal static CancellationTokenSource TokenSourceCatcher { get; private set; }
 
         internal static void StartCatcherTask(ArtilleryViewModel vm)
@@ -29,7 +30,8 @@ namespace Lastgarriz.Util
                     {
                         Thread.Sleep(40);
                         bool doBreak = false;
-                        foreach (var key in Global.ValidateKeyList)
+                        
+                        foreach (var key in HotKey.GetFeatureKeys(Strings.Feature.ARTILLERY_VALIDATE))
                         {
                             if (Common.IsKeyPushedDown(key))
                             {
@@ -96,14 +98,16 @@ namespace Lastgarriz.Util
         {
             TokenSourceCatcher?.Cancel();
         }
-
-        internal static void CheckUpdate()
+        
+        internal static void CheckUpdateTask()
         {
-            _ = Task.Run(() =>
+            UpdateCheckerTask = Task.Run(async () =>
             {
                 try
                 {
-                    string webVersion = Net.SendHTTP(null, Strings.VersionUrl, Client.Default).Result?.Replace("\n", string.Empty);
+                    string webVersion = await Net.SendHTTP(null, Strings.VersionUrl, Client.Default);
+                    webVersion = webVersion?.Replace("\n", string.Empty);
+
                     if (webVersion?.Length > 0)
                     {
                         Version version = new(Common.GetFileVersion());
@@ -129,7 +133,7 @@ namespace Lastgarriz.Util
                             }
                             else
                             {
-                                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                                await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                                 new Action(() => { DoWork(); }));
                             }
                         }
@@ -146,5 +150,21 @@ namespace Lastgarriz.Util
             }
             );
         }
+
+        /*
+        internal static void CheckPreviousTask(Task task)
+        {
+            bool runTask = task is null;
+            if (!runTask)
+            {
+                runTask = task.IsCanceled;
+
+                if (!runTask)
+                {
+                    throw new TaskCanceledException("A task cant be canceled.");
+                }
+            }
+        }
+        */
     }
 }

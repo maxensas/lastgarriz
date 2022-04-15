@@ -1,4 +1,5 @@
 ﻿using Lastgarriz.Util;
+using Lastgarriz.Util.Hook;
 using Lastgarriz.Util.Interop;
 using Lastgarriz.Views;
 using System;
@@ -14,11 +15,13 @@ namespace Lastgarriz.ViewModels.Command
         private static MainViewModel Vm { get; set; }
 
         private readonly DelegateCommand closeWindow;
+        private readonly DelegateCommand closedWindow;
         private readonly DelegateCommand openAbout;
         private readonly DelegateCommand checkVersion;
         private readonly DelegateCommand openSettings;
 
         public ICommand CloseWindow => closeWindow;
+        public ICommand ClosedWindow => closedWindow;
         public ICommand OpenAbout => openAbout;
         public ICommand CheckVersion => checkVersion;
         public ICommand OpenSettings => openSettings;
@@ -27,6 +30,7 @@ namespace Lastgarriz.ViewModels.Command
         {
             Vm = vm;
             closeWindow = new(OnCloseWindow, CanCloseWindow);
+            closedWindow = new(OnClosedWindow, CanClosedWindow);
             openAbout = new(OnOpenAbout, CanOpenAbout);
             checkVersion = new(OnCheckVersion, CanCheckVersion);
             openSettings = new(OnOpenSettings, CanOpenSettings);
@@ -66,6 +70,19 @@ namespace Lastgarriz.ViewModels.Command
             }
         }
 
+        private static bool CanClosedWindow(object commandParameter)
+        {
+            return true;
+        }
+
+        private static void OnClosedWindow(object commandParameter)
+        {
+            if (Global.DataJson.Config != null && Global.Terminate)
+            {
+                if (Global.IsHotKey) HotKey.RemoveRegisterHotKey(false);
+            }
+        }
+
         private static bool CanOpenAbout(object commandParameter)
         {
             return true;
@@ -89,7 +106,7 @@ namespace Lastgarriz.ViewModels.Command
 
         private static void OnCheckVersion(object commandParameter)
         {
-            TaskManager.CheckUpdate();
+            TaskManager.CheckUpdateTask();
 
             //TODO
             if (!Global.FirstCheckUpdate)

@@ -4,11 +4,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static Lastgarriz.Util.Global;
 
 namespace Lastgarriz.Util
 {
-    
+    // not in separated cs file
+    internal enum Client : ushort
+    {
+        Default = 0x00
+    }
 
     internal sealed class Net
     {
