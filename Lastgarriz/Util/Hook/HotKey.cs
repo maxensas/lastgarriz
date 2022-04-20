@@ -98,50 +98,61 @@ namespace Lastgarriz.Util.Hook
             return returnVal;
         }
 
-        internal static void SetHotKey(HotkeyViewModel vm, KeyEventArgs e, bool canUseModAsHotKey)
+        internal static void SetHotKey(HotkeyViewModel vm, EventArgs e, bool canUseModAsHotKey)
         {
-            var actualKey = GetVirtualKey(e);
-
-            var ignoreKeys = canUseModAsHotKey 
-                ? new[] { System.Windows.Forms.Keys.LWin, System.Windows.Forms.Keys.RWin } 
-                : Global.ModifierKeyList.ToArray();
-
-            bool isModKey = Global.ModifierKeyList.Contains(actualKey);
-
-            if (e.IsDown && !ignoreKeys.Contains(actualKey))
+            if (e is KeyEventArgs)
             {
-                var modifiers = new List<ModifierKeys>();
-                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && !isModKey)
-                {
-                    modifiers.Add(ModifierKeys.Control);
-                }
+                var keyArg = (KeyEventArgs)e ;
+                var actualKey = GetVirtualKey(keyArg);
 
-                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) && !isModKey)
-                {
-                    modifiers.Add(ModifierKeys.Alt);
-                }
+                var ignoreKeys = canUseModAsHotKey
+                    ? new[] { System.Windows.Forms.Keys.LWin, System.Windows.Forms.Keys.RWin }
+                    : Global.ModifierKeyList.ToArray();
 
-                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && !isModKey)
-                {
-                    modifiers.Add(ModifierKeys.Shift);
-                }
+                bool isModKey = Global.ModifierKeyList.Contains(actualKey);
 
-                string modifStr = System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(Keyboard.Modifiers);
-                string hotKey = modifiers.Count == 0
-                    ? string.Format("{0}", actualKey)
-                    : string.Format("{0}+{1}", modifStr, actualKey);
-
-                if (VerifyHotKey(hotKey))
+                if (keyArg.IsDown && !ignoreKeys.Contains(actualKey))
                 {
-                    if (hotKey.Length == 2 && hotKey.StartsWith('D')) // D0 to D9
+                    var modifiers = new List<ModifierKeys>();
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && !isModKey)
                     {
-                        hotKey = hotKey.Replace("D", string.Empty);
+                        modifiers.Add(ModifierKeys.Control);
                     }
-                    vm.Hotkey = hotKey;
-                }
-            }
 
-            e.Handled = true;
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Alt) && !isModKey)
+                    {
+                        modifiers.Add(ModifierKeys.Alt);
+                    }
+
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && !isModKey)
+                    {
+                        modifiers.Add(ModifierKeys.Shift);
+                    }
+
+                    string modifStr = System.ComponentModel.TypeDescriptor.GetConverter(typeof(ModifierKeys)).ConvertToString(Keyboard.Modifiers);
+                    string hotKey = modifiers.Count == 0
+                        ? string.Format("{0}", actualKey)
+                        : string.Format("{0}+{1}", modifStr, actualKey);
+
+                    if (VerifyHotKey(hotKey))
+                    {
+                        if (hotKey.Length == 2 && hotKey.StartsWith('D')) // D0 to D9
+                        {
+                            hotKey = hotKey.Replace("D", string.Empty);
+                        }
+                        vm.Hotkey = hotKey;
+                    }
+                }
+                keyArg.Handled = true;
+                return;
+            }
+            if (e is MouseEventArgs)
+            {
+                var mouseArg = (MouseEventArgs)e;
+
+                //System.Windows.Forms.MouseButtons.
+                //System.Windows.Input.MouseButton
+            }
         }
 
         private static System.Windows.Forms.Keys GetVirtualKey(KeyEventArgs e)

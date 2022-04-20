@@ -23,8 +23,13 @@ namespace Lastgarriz.Views
             Left = SystemParameters.PrimaryScreenWidth / 1.215; // 1920p : 1580
             Top = SystemParameters.PrimaryScreenHeight / 1.195; // 1080p : 904
             */
+            /*
             Left = (SystemParameters.PrimaryScreenWidth + Width) / 1.2975; // 1920p : 1579.96
             Top = (SystemParameters.PrimaryScreenHeight + Height) / 1.261; // 1080p : 904.044
+            */
+
+            Left = (SystemParameters.PrimaryScreenWidth - Width) / 1.133; // 1920p : 1579.87
+            Top = (SystemParameters.PrimaryScreenHeight - Height) / 1.128; // 1080p : 904.255
         }
 
         private void Window_Activated(object sender, EventArgs e)

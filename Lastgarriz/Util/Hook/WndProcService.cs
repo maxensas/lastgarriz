@@ -3,8 +3,11 @@ using Lastgarriz.Util.Interop;
 using Lastgarriz.Views;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Lastgarriz.Util.Hook
@@ -96,6 +99,34 @@ namespace Lastgarriz.Util.Hook
                                     artiWin.Name = Strings.View.ARTILLERY;
                                     artiWin.Show();
                                     artiWin.Visibility = Visibility.Visible;
+                                    if (hllLaunched)
+                                    {
+                                        Native.BringWindowToTop(findHwnd);
+                                    }
+                                }
+                            }
+
+                            if (fonctionLower is Strings.Feature.ROCKETINDICATOR_ENABLE)
+                            {
+                                IntPtr pHwnd = Native.FindWindow(null, Strings.View.ROCKET);
+                                if (pHwnd.ToInt32() > 0)
+                                {
+                                    HwndSource hwndSource = HwndSource.FromHwnd(pHwnd);
+                                    if (hwndSource.RootVisual is RocketWindow rocketWin)
+                                    {
+                                        TaskManager.EndMouseCatcherTask(rocketWin.ViewModel);
+                                    }
+                                }
+                                else
+                                {
+                                    Main?.Close(); // close mainWindow
+                                    RocketWindow rocketWin = new();
+                                    rocketWin.Name = Strings.View.ROCKET;
+                                    rocketWin.Show();
+                                    rocketWin.Visibility = Visibility.Visible;
+                                    rocketWin.ViewModel.ShowWindow = true;
+                                    TaskManager.StartMouseCatcherTask(rocketWin.ViewModel);
+                                    
                                     if (hllLaunched)
                                     {
                                         Native.BringWindowToTop(findHwnd);

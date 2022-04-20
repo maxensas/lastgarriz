@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace Lastgarriz.Util.Interop
 {
@@ -50,6 +51,57 @@ namespace Lastgarriz.Util.Interop
         internal const int WM_INPUT = 0x00FF;
         internal const int WM_HOTKEY = 0x312;
         internal const int VK_CONTROL = 0x11;
+        internal const int VK_MBUTTON = 0x04;
+        /// <summary>
+        /// Struct representing a point.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct POINT
+        {
+            internal int X;
+            internal int Y;
+
+            public static implicit operator Point(POINT point)
+            {
+                return new Point(point.X, point.Y);
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the cursor's position, in screen coordinates.
+        /// </summary>
+        /// <see>See MSDN documentation for further information.</see>
+        [DllImport("user32.dll")] internal static extern bool GetCursorPos(out POINT lpPoint);
+
+        internal static Point GetCursorPosition()
+        {
+            POINT lpPoint;
+            GetCursorPos(out lpPoint);
+            // NOTE: If you need error handling
+            // bool success = GetCursorPos(out lpPoint);
+            // if (!success)
+
+            return lpPoint;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct RECT
+        {
+            internal long left; // Specifies the x-coordinate of the upper-left corner of the rectangle.
+            internal long top; // Specifies the y-coordinate of the upper-left corner of the rectangle.
+            internal long right; // Specifies the x-coordinate of the lower-right corner of the rectangle.
+            internal long bottom; // Specifies the y-coordinate of the lower-right corner of the rectangle.
+            
+            //public static implicit operator Rect(RECT point)
+            //{
+                //return new Rect(point.left, point.top, point.right, point.bottom);
+            //}
+        }
+
+        [DllImport("user32.dll")] internal static extern bool SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")] internal static extern int GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        //[DllImport("user32.dll")] internal static extern bool GetClipCursor(out RECT lpRect);
 
         //internal const int WM_ACTIVATEAPP = 0x1c;
         //internal const int WM_KILLFOCUS = 0x0008; 

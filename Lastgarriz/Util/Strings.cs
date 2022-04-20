@@ -22,6 +22,7 @@ namespace Lastgarriz.Util
         {
             internal const string CONFIGURATION = "Configuration";
             internal const string ARTILLERY = "Artillery";
+            internal const string ROCKET = "Rocket";
         }
 
         internal static class Feature
@@ -31,6 +32,8 @@ namespace Lastgarriz.Util
             internal const string ARTILLERY_USGER = "artillery_usger";
             internal const string ARTILLERY_RU = "artillery_ru";
             internal const string ARTILLERY_VALIDATE = "artillery_validate";
+            internal const string ROCKETINDICATOR_ENABLE = "rocket_enable";
+            internal const string ROCKETINDICATOR_START = "rocket_start";
             internal const string AUTOQUEUE = "autoqueue";
             internal const string BROWSER = "browser";
 

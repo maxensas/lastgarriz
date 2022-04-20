@@ -1,6 +1,7 @@
 ﻿using Lastgarriz.Util.Hook;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace Lastgarriz.Util
@@ -20,6 +21,9 @@ namespace Lastgarriz.Util
         internal static IntPtr HookHwnd { get; set; }
 
         internal static string ErrorMsg { get; set; }
+
+        internal static int HalfScreenHeight { get; private set; } = Convert.ToInt32(SystemParameters.PrimaryScreenHeight / 2) - 1;
+        internal static int HalfScreenWidth { get; private set; } = Convert.ToInt32(SystemParameters.PrimaryScreenWidth / 2) - 1;
 
         //internal static MainViewModel Vm { get; set; }
         internal static DataManager DataJson { get; set; }

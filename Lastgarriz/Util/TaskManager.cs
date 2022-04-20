@@ -1,24 +1,29 @@
 ﻿using Lastgarriz.Util.Hook;
+using Lastgarriz.Util.Interop;
 using Lastgarriz.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Lastgarriz.Util
 {
-    internal static class TaskManager // light
+    internal static class TaskManager // light, to redo
     {
         internal static Task UpdateCheckerTask { get; private set; } // only last task launched
         internal static Task KeystrokeCatcherTask { get; private set; } // only last task launched
-        internal static CancellationTokenSource TokenSourceCatcher { get; private set; }
+        internal static Task MouseCatcherTask { get; private set; } // only last task launched
+        internal static Task CloseMouseCatcherTask { get; private set; } // only last task launched
+        internal static CancellationTokenSource TokenSourceKeyCatcher { get; private set; }
+        internal static CancellationTokenSource TokenSourceMouseCatcher { get; private set; }
 
-        internal static void StartCatcherTask(ArtilleryViewModel vm)
+        internal static void StartKeystrokeCatcherTask(ArtilleryViewModel vm)
         {
-            StopCatcherTask();
-            TokenSourceCatcher = new();
+            StopKeyCatcherTask();
+            TokenSourceKeyCatcher = new();
 
             KeystrokeCatcherTask = Task.Run(() =>
             {
@@ -30,7 +35,7 @@ namespace Lastgarriz.Util
                     {
                         Thread.Sleep(40);
                         bool doBreak = false;
-                        
+
                         foreach (var key in HotKey.GetFeatureKeys(Strings.Feature.ARTILLERY_VALIDATE))
                         {
                             if (Common.IsKeyPushedDown(key))
@@ -84,21 +89,179 @@ namespace Lastgarriz.Util
                             if (doBreak) break;
                         }
                         blockNum = doBreak;
-                    } while (!TokenSourceCatcher.Token.IsCancellationRequested);
+                    } while (!TokenSourceKeyCatcher.Token.IsCancellationRequested);
                 }
                 catch (Exception ex)
                 {
                     WindowMessage.SendForeground(String.Format("{0} Error:  {1}\r\n\r\n{2}\r\n\r\n", ex.Source, ex.Message, ex.StackTrace), "Keystroke catcher task encountered an error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            , TokenSourceCatcher.Token);
+            , TokenSourceKeyCatcher.Token);
         }
 
-        internal static void StopCatcherTask()
+        internal static void StartMouseCatcherTask(RocketViewModel vm) // mouse Y Axis
         {
-            TokenSourceCatcher?.Cancel();
+            StopMouseCatcherTask();
+            TokenSourceMouseCatcher = new();
+
+            MouseCatcherTask = Task.Run(() =>
+            {
+                try
+                {
+                    Thread.Sleep(200);
+                    int interval = 5000; // 5s, add to globals
+                    System.Timers.Timer MouseCatcherTimer = new(interval);
+                    //MouseCatcherTimer.Elapsed += (sender, e) => OnMouseCatcherTimedEvent(sender, e, vm);
+                    MouseCatcherTimer.AutoReset = false;
+                    bool reInit = false;
+                    do
+                    {
+                        if (Common.IsMiddleButtonMousePushedOnce() || reInit)
+                        {
+                            reInit = false;
+                            Native.SetCursorPos(Global.HalfScreenWidth, Global.HalfScreenHeight);
+
+                            MouseCatcherTimer.Start();
+                            vm.ShowDisclaimer = false;
+                            vm.ShowWindow = true;
+
+                            int multiplier = 0;
+                            int maxPixels = (int)SystemParameters.PrimaryScreenHeight - 1;
+                            do
+                            {
+                                Native.GetCursorPos(out Native.POINT pos);
+                                //Trace.WriteLine($"[Mouse position] X: {pos.X}  Y: {pos.Y}");
+
+                                bool min = pos.Y == 0;
+                                bool max = pos.Y == maxPixels;
+                                if (min || max)
+                                {
+                                    if (min)
+                                    {
+                                        multiplier--;
+                                    }
+                                    if (max)
+                                    {
+                                        multiplier++;
+                                    }
+                                    Native.SetCursorPos(Global.HalfScreenWidth, Global.HalfScreenHeight);
+                                    Native.GetCursorPos(out pos);
+                                }
+
+                                vm.Indicator = Common.ConvertCursorPositionToRocketIndicator(pos.Y, multiplier);
+
+                                //Thread.Sleep(1);
+                                if (Common.IsMiddleButtonMousePushedOnce())
+                                {
+                                    reInit = true;
+                                }
+                            } while (MouseCatcherTimer.Enabled && !TokenSourceMouseCatcher.Token.IsCancellationRequested && !reInit);
+                            
+                            if (!TokenSourceMouseCatcher.Token.IsCancellationRequested && !MouseCatcherTimer.Enabled)
+                            {
+                                vm.ShowWindow = false;
+                            }
+                            MouseCatcherTimer.Stop();
+                        }
+                        Thread.Sleep(100);
+                    } while (!TokenSourceMouseCatcher.Token.IsCancellationRequested);
+                }
+                catch (Exception ex)
+                {
+                    WindowMessage.SendForeground(String.Format("{0} Error:  {1}\r\n\r\n{2}\r\n\r\n", ex.Source, ex.Message, ex.StackTrace), "Keystroke catcher task encountered an error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            , TokenSourceMouseCatcher.Token);
+
+            // HideDisclaimerMouseCatcherTask
+            _ = Task.Run(() =>
+            {
+                try
+                {
+                    if (vm.ShowDisclaimer)
+                    {
+                        Thread.Sleep(2000);
+                        bool closeCalled = false;
+                        if (CloseMouseCatcherTask?.Status is TaskStatus.Running)
+                        {
+                            closeCalled = true;
+                        }
+                        if (vm.ShowDisclaimer && !TokenSourceMouseCatcher.IsCancellationRequested && !closeCalled)
+                        {
+                            vm.ShowWindow = false;
+                            vm.ShowDisclaimer = false;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WindowMessage.SendForeground(String.Format("{0} Error:  {1}\r\n\r\n{2}\r\n\r\n", ex.Source, ex.Message, ex.StackTrace), "Error encountered in HideRocketDisclaimer method", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            );
         }
-        
+
+        internal static void EndMouseCatcherTask(RocketViewModel vm)
+        {
+            if (TokenSourceMouseCatcher is null || MouseCatcherTask is null)
+            {
+                return;
+            }
+
+            bool alreadyRunning = false;
+            if (CloseMouseCatcherTask?.Status is TaskStatus.Running)
+            {
+                alreadyRunning = true;
+            }
+
+            if (!TokenSourceMouseCatcher.IsCancellationRequested && !alreadyRunning)
+            {
+                StopMouseCatcherTask();
+                CloseMouseCatcherTask = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await Task.WhenAll(MouseCatcherTask);
+
+                        vm.ShowDisclaimer = true;
+                        vm.DisclaimerText = "Rocket indicator desactivated";
+                        vm.DisclaimerColor = Brushes.Red;
+                        vm.ShowWindow = true;
+
+                        Thread.Sleep(2000);
+
+                        IntPtr pHwnd = Native.FindWindow(null, Strings.View.ROCKET);
+                        if (pHwnd.ToInt32() > 0)
+                        {
+                            Native.SendMessage(pHwnd, Native.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WindowMessage.SendForeground(String.Format("{0} Error:  {1}\r\n\r\n{2}\r\n\r\n", ex.Source, ex.Message, ex.StackTrace), "Error encountered in CloseWindowAfterDelay method", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            );
+            }
+        }
+
+        internal static void StopKeyCatcherTask()
+        {
+            TokenSourceKeyCatcher?.Cancel();
+        }
+
+        internal static void StopMouseCatcherTask()
+        {
+            TokenSourceMouseCatcher?.Cancel();
+        }
+        /*
+        private static void OnMouseCatcherTimedEvent(object source, System.Timers.ElapsedEventArgs e, RocketViewModel vm)
+        {
+
+            Trace.WriteLine("The Elapsed event was raised at {0}", e.SignalTime.ToString());
+        }
+        */
+
         internal static void CheckUpdateTask()
         {
             UpdateCheckerTask = Task.Run(async () =>

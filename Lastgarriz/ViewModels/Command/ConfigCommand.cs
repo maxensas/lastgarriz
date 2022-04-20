@@ -68,11 +68,14 @@ namespace Lastgarriz.ViewModels.Command
             if (commandParameter is CompositeCommandParameter)
             {
                 var param = (CompositeCommandParameter)commandParameter;
-                var arg = (KeyEventArgs)param.EventArgs;
-                var vm = (HotkeyViewModel)param.Parameter;
-                bool canUseModAsHotKey = vm == Vm.Features.Artillery_validate;
 
-                HotKey.SetHotKey(vm, arg, canUseModAsHotKey);
+                //var arg = (KeyEventArgs)param.EventArgs;
+                var vm = (HotkeyViewModel)param.Parameter;
+                bool canUseModAsHotKey = 
+                    vm == Vm.Features.Artillery_validate || 
+                    vm == Vm.Features.Rocket_start;
+
+                HotKey.SetHotKey(vm, param.EventArgs, canUseModAsHotKey);
             }
         }
     }

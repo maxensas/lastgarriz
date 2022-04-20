@@ -37,7 +37,7 @@ namespace Lastgarriz.ViewModels.Command
 
         private static void OnCloseArtilleryWindow(object commandParameter)
         {
-            TaskManager.StopCatcherTask();
+            TaskManager.StopKeyCatcherTask();
         }
     }
 }

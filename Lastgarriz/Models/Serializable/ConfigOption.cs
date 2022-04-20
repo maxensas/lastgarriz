@@ -17,6 +17,9 @@ namespace Lastgarriz.Models.Serializable
         [DataMember(Name = "devmode")]
         internal bool DevMode { get; set; } = false;
 
+        [DataMember(Name = "inverted_mouse")]
+        internal bool InvertedMouse { get; set; } = false;
+
         [DataMember(Name = "opacity")]
         internal double Opacity { get; set; } = 100;
     }

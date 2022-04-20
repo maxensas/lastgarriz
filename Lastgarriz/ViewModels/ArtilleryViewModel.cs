@@ -24,7 +24,7 @@ namespace Lastgarriz.ViewModels
             Metrics = new(rusianMetrics);
             Title = rusianMetrics ? "RU metric converter" : "US/GER metric converter";
 
-            TaskManager.StartCatcherTask(this);
+            TaskManager.StartKeystrokeCatcherTask(this);
         }
     }
 }

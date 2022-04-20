@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Security.Principal;
 using System.Text;
+using System.Windows;
 using System.Windows.Forms;
 using Lastgarriz.Util.Interop;
 
@@ -81,6 +82,27 @@ namespace Lastgarriz.Util
             }
             return 0 != (Native.GetAsyncKeyState((int)vKey) & 0x8000);
         }
+
+        internal static bool IsMiddleButtonMousePushedOnce()
+        {
+            return 0 != (Native.GetAsyncKeyState(Native.VK_MBUTTON) & 1);
+        }
+
+        internal static string ConvertCursorPositionToRocketIndicator(int ordinate, int multiplier)
+        {
+            int refVal = 1000; // add to globals
+            double calc = ordinate;
+            calc = (calc / Global.HalfScreenHeight) * refVal;
+            int val = (Convert.ToInt32(calc) - refVal) + refVal * multiplier;
+            //Trace.WriteLine(val);
+            if (val == 0)
+            {
+                return "target";
+            }
+            val = Global.DataJson.Config.Options.InvertedMouse ? val : val * -1;
+            return val.ToString();
+        }
+
         /*
         private static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
         {
