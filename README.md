@@ -1,4 +1,4 @@
-# <img src="https://i.imgur.com/deyzsBF.png" width="30" height="30"> Lastgarriz - [Download v0.1.1](https://github.com/maxensas/lastgarriz/releases/download/0.1.1/Lastgarriz_win-x64.7z)  
+# <img src="https://i.imgur.com/deyzsBF.png" width="30" height="30"> Lastgarriz - [Download v0.1.2](https://github.com/maxensas/lastgarriz/releases/download/0.1.2/Lastgarriz_win-x64.7z)  
 
 [![Release](https://img.shields.io/github/release/maxensas/lastgarriz.svg)](https://github.com/maxensas/lastgarriz/releases/) 
 [![Github all releases](https://img.shields.io/github/downloads/maxensas/lastgarriz/total.svg)](https://GitHub.com/maxensas/lastgarriz/releases/) [![Github latest release](https://img.shields.io/github/downloads/maxensas/lastgarriz/latest/total.svg)](https://GitHub.com/maxensas/lastgarriz/releases/)
