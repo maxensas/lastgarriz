@@ -9,6 +9,32 @@ namespace Lastgarriz.Util
     internal static class Global
     {
         internal static readonly bool DEBUG_TIMERS = false;
+        internal static readonly int SCALING_VALUE = 1000; // GOOD - DO NOT CHANGE
+        internal static readonly double RATIO_BAZOOKA = 0.358; // TO CHECK & MODIFY
+        internal static readonly double RATIO_PANZERSCHRECK = 0.3428; // TO CHECK & MODIFY
+        internal static readonly double RATIO_WITHOUT_STEADY = 0.777; // TO CHECK & MODIFY
+
+        /* 
+            -INGAME READINGS- - not precise enough : TO REDO-
+
+            PANZERSCHRECK :
+            960m - 3000 (0.32)
+            840m - 2525 (0.33267)
+            720m - 2115 (0.3404)
+            600m - 1750 (0.342857)
+            480m - 1420 (0.3380)
+            360m - 1050 (0.3428)
+            240m - 700  (0.3428)
+            120m - 350  (0.3428)
+
+            BAZOOKA :
+            720m - 2080 (0.34615)
+            600m - 1730 (0.34682)
+            480m - 1340 (0.35820)
+            360m - 1025 (0.35122)
+            240m - 670  (0.35821)
+            120m - 320  (0.375)
+        */
 
         internal static bool Terminate { get; set; }
         internal static bool IsHotKey { get; set; }

@@ -90,16 +90,32 @@ namespace Lastgarriz.Util
 
         internal static string ConvertCursorPositionToRocketIndicator(int ordinate, int multiplier)
         {
-            int refVal = 1000; // add to globals
             double calc = ordinate;
-            calc = (calc / Global.HalfScreenHeight) * refVal;
-            int val = (Convert.ToInt32(calc) - refVal) + refVal * multiplier;
+            calc = (calc / Global.HalfScreenHeight) * Global.SCALING_VALUE;
+            int val = (Convert.ToInt32(calc) - Global.SCALING_VALUE) + Global.SCALING_VALUE * multiplier;
             //Trace.WriteLine(val);
             if (val == 0)
             {
                 return "target";
             }
             val = Global.DataJson.Config.Options.InvertedMouse ? val : val * -1;
+
+            if(Global.DataJson.Config.Options.ConvertIndicator)
+            {
+                double convValue = val;
+                if (!Global.DataJson.Config.Options.SteadyAim)
+                {
+                    convValue *= Global.RATIO_WITHOUT_STEADY;
+                }
+                convValue = Global.DataJson.Config.Options.SchreckZook ?
+                    convValue * Global.RATIO_PANZERSCHRECK : convValue * Global.RATIO_BAZOOKA;
+
+                val = Convert.ToInt32(convValue);
+                
+                return Global.DataJson.Config.Options.SchreckZook ?
+                    val.ToString() + "m [schreck]" : val.ToString() + "m [bazooka]";
+            }
+
             return val.ToString();
         }
 

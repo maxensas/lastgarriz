@@ -15,11 +15,17 @@ namespace Lastgarriz.ViewModels
         private bool disableStartup;
         private bool devMode;
         private bool invertedMouse;
+        private bool steadyAim;
+        private bool schreckZook;
+        private bool convertIndicator;
         private FeaturesViewModel features = new();
 
         public bool DisableStartup { get => disableStartup; set => SetProperty(ref disableStartup, value); }
         public bool DevMode { get => devMode; set => SetProperty(ref devMode, value); }
         public bool InvertedMouse { get => invertedMouse; set => SetProperty(ref invertedMouse, value); }
+        public bool SteadyAim { get => steadyAim; set => SetProperty(ref steadyAim, value); }
+        public bool SchreckZook { get => schreckZook; set => SetProperty(ref schreckZook, value); }
+        public bool ConvertIndicator { get => convertIndicator; set => SetProperty(ref convertIndicator, value); }
         public FeaturesViewModel Features { get => features; set => SetProperty(ref features, value); }
 
         public ConfigCommand Commands { get; private set; }
@@ -82,6 +88,9 @@ namespace Lastgarriz.ViewModels
             DisableStartup = Config.Options.DisableStartupMessage;
             DevMode = Config.Options.DevMode;
             InvertedMouse = Config.Options.InvertedMouse;
+            SteadyAim = Config.Options.SteadyAim;
+            SchreckZook = Config.Options.SchreckZook;
+            ConvertIndicator = Config.Options.ConvertIndicator;
 
             foreach (var item in Config.Shortcuts)
             {
@@ -135,6 +144,9 @@ namespace Lastgarriz.ViewModels
             Config.Options.DisableStartupMessage = DisableStartup;
             Config.Options.DevMode = DevMode;
             Config.Options.InvertedMouse = InvertedMouse;
+            Config.Options.SteadyAim = SteadyAim;
+            Config.Options.SchreckZook = SchreckZook;
+            Config.Options.ConvertIndicator = ConvertIndicator;
             //Config.Options.CheckUpdates = true;
 
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo(Strings.Culture[Config.Options.Language]);

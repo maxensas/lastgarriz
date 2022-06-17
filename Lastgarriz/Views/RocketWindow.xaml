@@ -22,12 +22,12 @@
         <SolidColorBrush Opacity="0"/>
     </Window.Background>
     <Grid Width="240" Height="40" Visibility="{Binding ShowWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <Border Height="40" Width="70" d:Visibility="Visible" Visibility="{Binding ShowDisclaimer, Converter={StaticResource InverseBoolToVisConverter}}" Background="Transparent" BorderThickness="2" CornerRadius="3">
+        <Border Height="40" Width="230" d:Visibility="Visible" Visibility="{Binding ShowDisclaimer, Converter={StaticResource InverseBoolToVisConverter}}" Background="Transparent" BorderThickness="2" CornerRadius="3">
             <Border.BorderBrush>
-                <SolidColorBrush Color="Lime" Opacity="0.5"/>
+                <SolidColorBrush Color="Lime" Opacity="0"/>
             </Border.BorderBrush>
             <Grid>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0" FontSize="18" d:Text="value" Text="{Binding Indicator}" FontWeight="Bold" Foreground="White" FontFamily="Consolas"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0" FontSize="18" d:Text="value" Text="{Binding Indicator}" FontWeight="Bold" Foreground="Red" FontFamily="Consolas"/>
             </Grid>
         </Border>
         <Grid Height="40" d:Visibility="Hidden" Visibility="{Binding ShowDisclaimer, Converter={StaticResource BooleanToVisibilityConverter}}">

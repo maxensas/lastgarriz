@@ -20,6 +20,15 @@ namespace Lastgarriz.Models.Serializable
         [DataMember(Name = "inverted_mouse")]
         internal bool InvertedMouse { get; set; } = false;
 
+        [DataMember(Name = "steady_aim")]
+        internal bool SteadyAim { get; set; } = false;
+
+        [DataMember(Name = "schreck_zook")]
+        internal bool SchreckZook { get; set; } = false;
+
+        [DataMember(Name = "convert_indicator")]
+        internal bool ConvertIndicator { get; set; } = false;
+
         [DataMember(Name = "opacity")]
         internal double Opacity { get; set; } = 100;
     }
