@@ -88,7 +88,38 @@ namespace Lastgarriz.Util
             return 0 != (Native.GetAsyncKeyState(Native.VK_MBUTTON) & 1);
         }
 
-        internal static string ConvertCursorPositionToRocketIndicator(int ordinate, int multiplier)
+        internal static string ConvertWidthCursorPosition(int abscissa, int multiplier)
+        {
+            double calc = abscissa;
+            calc = (calc / Global.HalfScreenWidth) * Global.SCALING_VALUE;
+            int val = (Convert.ToInt32(calc) - Global.SCALING_VALUE) + Global.SCALING_VALUE * multiplier;
+            if (val == 0)
+            {
+                return Strings.Aim.NOVALUE;
+            }
+            return val.ToString("G", CultureInfo.InvariantCulture);
+        }
+
+        internal static int UpdateCrosshairAbscissa(int abscissa, int multiplier)
+        {
+            int valMin = -80, valMax = 80;
+
+            double calc = abscissa;
+            calc = (calc / Global.HalfScreenWidth) * Global.SCALING_VALUE;
+            int val = (Convert.ToInt32(calc) - Global.SCALING_VALUE) + Global.SCALING_VALUE * multiplier;
+
+            if (val < valMin)
+            {
+                return valMin;
+            }
+            if (val > valMax)
+            {
+                return valMax;
+            }
+            return val;
+        }
+
+        internal static string ConvertHeightCursorPosition(int ordinate, int multiplier)
         {
             double calc = ordinate;
             calc = (calc / Global.HalfScreenHeight) * Global.SCALING_VALUE;
@@ -96,7 +127,7 @@ namespace Lastgarriz.Util
             //Trace.WriteLine(val);
             if (val == 0)
             {
-                return "target";
+                return Strings.Aim.NOVALUE;
             }
             val = Global.DataJson.Config.Options.InvertedMouse ? val : val * -1;
 
@@ -111,14 +142,27 @@ namespace Lastgarriz.Util
                     convValue * Global.RATIO_PANZERSCHRECK : convValue * Global.RATIO_BAZOOKA;
 
                 val = Convert.ToInt32(convValue);
-                
-                return Global.DataJson.Config.Options.SchreckZook ?
-                    val.ToString() + "m [schreck]" : val.ToString() + "m [bazooka]";
-            }
 
-            return val.ToString();
+                return val.ToString("G", CultureInfo.InvariantCulture) + 'm';
+                /*
+                return Global.DataJson.Config.Options.SchreckZook ?
+                    val.ToString() + (Global.DataJson.Config.Options.SteadyAim ? Strings.Aim.SCHRECK_METER_STEADY : Strings.Aim.SCHRECK_METER) 
+                    : val.ToString() + (Global.DataJson.Config.Options.SteadyAim ? Strings.Aim.BAZOOKA_METER_STEADY : Strings.Aim.BAZOOKA_METER);
+                */
+            }
+            return val.ToString("G", CultureInfo.InvariantCulture);
         }
 
+        internal static string GetRocketIndicatorKind()
+        {
+            if (Global.DataJson.Config.Options.ConvertIndicator)
+            {
+                return Global.DataJson.Config.Options.SchreckZook ?
+                    (Global.DataJson.Config.Options.SteadyAim ? Strings.Aim.SCHRECK_STEADY : Strings.Aim.SCHRECK)
+                    : (Global.DataJson.Config.Options.SteadyAim ? Strings.Aim.BAZOOKA_STEADY : Strings.Aim.BAZOOKA);
+            }
+            return string.Empty;
+        }
         /*
         private static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
         {

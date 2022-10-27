@@ -16,18 +16,38 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="None" Width="240" Height="40" Focusable="False" IsEnabled="False"
+        mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="None" Width="240" Height="120" Focusable="False" IsEnabled="False"
         Title="Rocket" AllowsTransparency="True" Topmost="True" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center">
     <Window.Background>
         <SolidColorBrush Opacity="0"/>
     </Window.Background>
-    <Grid Width="240" Height="40" Visibility="{Binding ShowWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <Border Height="40" Width="230" d:Visibility="Visible" Visibility="{Binding ShowDisclaimer, Converter={StaticResource InverseBoolToVisConverter}}" Background="Transparent" BorderThickness="2" CornerRadius="3">
+    <Grid Width="240" Height="120" Visibility="{Binding ShowWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Height="120" Width="230" d:Visibility="Visible" Visibility="{Binding ShowDisclaimer, Converter={StaticResource InverseBoolToVisConverter}}" Background="Transparent" BorderThickness="2" CornerRadius="3">
             <Border.BorderBrush>
                 <SolidColorBrush Color="Lime" Opacity="0"/>
             </Border.BorderBrush>
             <Grid>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0" FontSize="18" d:Text="value" Text="{Binding Indicator}" FontWeight="Bold" Foreground="Red" FontFamily="Consolas"/>
+                <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Line X1="{Binding Xhair}" Y1="0" X2="{Binding Xhair}" Y2="12" d:Stroke="Lime" Stroke="{Binding CrosshairColor}" StrokeThickness="3" />
+                    <Line X1="-7" Y1="0" X2="-7" Y2="16" Stroke="White" StrokeThickness="3">
+                        <Line.Effect>
+                            <DropShadowEffect ShadowDepth="2" BlurRadius="7" Color="Black" Direction="270" Opacity="0.5"/>
+                        </Line.Effect>
+                    </Line>
+                    <Line X1="7" Y1="0" X2="7" Y2="16" Stroke="White" StrokeThickness="3" />
+                    <Line X1="-14" Y1="2" X2="-6" Y2="2" Stroke="White" StrokeThickness="4" />
+                    <Line X1="6" Y1="2" X2="14" Y2="2" Stroke="White" StrokeThickness="4" />
+                </Canvas>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,55,0,0" FontSize="18" d:Text="value" Text="{Binding Indicator}" FontWeight="Bold" Foreground="White" FontFamily="Consolas">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,95,0,0" FontSize="18" d:Text="kind" Text="{Binding Kind}" FontWeight="Bold" Foreground="White" FontFamily="Consolas">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                    </TextBlock.Effect>
+                </TextBlock>
             </Grid>
         </Border>
         <Grid Height="40" d:Visibility="Hidden" Visibility="{Binding ShowDisclaimer, Converter={StaticResource BooleanToVisibilityConverter}}">

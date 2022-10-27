@@ -12,6 +12,15 @@ namespace Lastgarriz.Util
         internal static readonly string VersionUrl = "https://raw.githubusercontent.com/maxensas/lastgarriz/master/VERSION";
         internal const string KEYLOG = "keylog";
 
+        internal static class Aim
+        {
+            internal const string NOVALUE = "target";
+            internal const string SCHRECK = "schreck";
+            internal const string SCHRECK_STEADY = "steady schreck";
+            internal const string BAZOOKA = "bazooka";
+            internal const string BAZOOKA_STEADY = "steady bazooka";
+        }
+
         internal static class File
         {
             internal const string CONFIG = "Config.json";

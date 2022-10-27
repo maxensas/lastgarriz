@@ -109,8 +109,7 @@ namespace Lastgarriz.Util
                 try
                 {
                     Thread.Sleep(200);
-                    int interval = 5000; // 5s, add to globals
-                    System.Timers.Timer MouseCatcherTimer = new(interval);
+                    System.Timers.Timer MouseCatcherTimer = new(Global.INDICATOR_TIMER);
                     //MouseCatcherTimer.Elapsed += (sender, e) => OnMouseCatcherTimedEvent(sender, e, vm);
                     MouseCatcherTimer.AutoReset = false;
                     bool reInit = false;
@@ -125,30 +124,34 @@ namespace Lastgarriz.Util
                             vm.ShowDisclaimer = false;
                             vm.ShowWindow = true;
 
-                            int multiplier = 0;
-                            int maxPixels = (int)SystemParameters.PrimaryScreenHeight - 1;
-                            do
+                            int heightMultiplier = 0, widthMultiplier = 0;
+                            int maxHeightPixels = (int)SystemParameters.PrimaryScreenHeight - 1;
+                            int maxWidthPixels = (int)SystemParameters.PrimaryScreenWidth - 1;
+                            do // Consume some % processor
                             {
                                 Native.GetCursorPos(out Native.POINT pos);
                                 //Trace.WriteLine($"[Mouse position] X: {pos.X}  Y: {pos.Y}");
 
-                                bool min = pos.Y == 0;
-                                bool max = pos.Y == maxPixels;
-                                if (min || max)
+                                bool heightMin = pos.Y == 0;
+                                bool heightMax = pos.Y == maxHeightPixels;
+                                bool widthMin = pos.X == 0;
+                                bool widthMax = pos.X == maxWidthPixels;
+                                if (heightMin || heightMax || widthMin || widthMax)
                                 {
-                                    if (min)
-                                    {
-                                        multiplier--;
-                                    }
-                                    if (max)
-                                    {
-                                        multiplier++;
-                                    }
-                                    Native.SetCursorPos(Global.HalfScreenWidth, Global.HalfScreenHeight);
+                                    if (heightMin) heightMultiplier--;
+                                    if (heightMax) heightMultiplier++;
+                                    if (widthMin) widthMultiplier--;
+                                    if (widthMax) widthMultiplier++;
+
+                                    Native.SetCursorPos((widthMin || widthMax) ? Global.HalfScreenWidth : pos.X, 
+                                        (heightMin || heightMax) ? Global.HalfScreenHeight : pos.Y);
                                     Native.GetCursorPos(out pos);
                                 }
 
-                                vm.Indicator = Common.ConvertCursorPositionToRocketIndicator(pos.Y, multiplier);
+                                vm.Indicator = Common.ConvertHeightCursorPosition(pos.Y, heightMultiplier);
+                                vm.Kind = Common.GetRocketIndicatorKind();
+                                vm.Xhair = Common.UpdateCrosshairAbscissa(pos.X, widthMultiplier);
+                                vm.CrosshairColor = (vm.Xhair < -8 || vm.Xhair > 8) ? Brushes.Red : Brushes.Lime;
 
                                 //Thread.Sleep(1);
                                 if (Common.IsMiddleButtonMousePushedOnce())

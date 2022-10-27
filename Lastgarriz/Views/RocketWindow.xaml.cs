@@ -32,7 +32,7 @@ namespace Lastgarriz.Views
             DataContext = ViewModel;
             
             Left = (SystemParameters.PrimaryScreenWidth - Width) / 2; 
-            Top = (SystemParameters.PrimaryScreenHeight - Height) / 1.8;
+            Top = (SystemParameters.PrimaryScreenHeight - Height) / 2;//1.8
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -47,14 +47,14 @@ namespace Lastgarriz.Views
             }*/
         }
         /*
-private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-{
-   IntPtr findHwnd = Native.FindWindow(Strings.HllClass, Strings.HllCaption);
-   bool hllLaunched = findHwnd.ToInt32() > 0;
-   if (hllLaunched)
-   {
-       Native.BringWindowToTop(findHwnd);
-   }
-}*/
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+           IntPtr findHwnd = Native.FindWindow(Strings.HllClass, Strings.HllCaption);
+           bool hllLaunched = findHwnd.ToInt32() > 0;
+           if (hllLaunched)
+           {
+               Native.BringWindowToTop(findHwnd);
+           }
+        }*/
     }
 }

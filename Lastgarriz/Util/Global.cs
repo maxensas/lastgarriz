@@ -9,33 +9,52 @@ namespace Lastgarriz.Util
     internal static class Global
     {
         internal static readonly bool DEBUG_TIMERS = false;
-        internal static readonly int SCALING_VALUE = 1000; // GOOD - DO NOT CHANGE
-        internal static readonly double RATIO_BAZOOKA = 0.358; // TO CHECK & MODIFY
-        internal static readonly double RATIO_PANZERSCHRECK = 0.3428; // TO CHECK & MODIFY
-        internal static readonly double RATIO_WITHOUT_STEADY = 0.777; // TO CHECK & MODIFY
-
+        /*
+         * old
+        internal static readonly double RATIO_BAZOOKA = 0.358;
+        internal static readonly double RATIO_PANZERSCHRECK = 0.3428;
+        internal static readonly double RATIO_WITHOUT_STEADY = 0.777;
+        */
         /* 
-            -INGAME READINGS- - not precise enough : TO REDO-
+            -INGAME READINGS- 
 
-            PANZERSCHRECK :
-            960m - 3000 (0.32)
-            840m - 2525 (0.33267)
-            720m - 2115 (0.3404)
-            600m - 1750 (0.342857)
-            480m - 1420 (0.3380)
-            360m - 1050 (0.3428)
-            240m - 700  (0.3428)
-            120m - 350  (0.3428)
+            PANZERSCHRECK : -new-
+            960m - 3585 (0.2378) -0.0422
+            840m - 3000 (0.28)   -0.0080
+            720m - 2500 (0.288)  -0.0046
+            600m - 2050 (0.2926) -0.0018
+            480m - 1630 (0.2944) -0.0056
+            360m - 1200 (0.3)    -0 (probably bad value)
+            240m - 800  (0.3)    -0.0287
+            120m - 365  (0.3287) init
 
-            BAZOOKA :
-            720m - 2080 (0.34615)
-            600m - 1730 (0.34682)
-            480m - 1340 (0.35820)
-            360m - 1025 (0.35122)
-            240m - 670  (0.35821)
-            120m - 320  (0.375)
+            BAZOOKA : -old-
+            720m - 2080 (0.34615) -0.00067
+            600m - 1730 (0.34682) -0.01138
+            480m - 1340 (0.35820) -0.00698
+            360m - 1025 (0.35122) -0.00699
+            240m - 670  (0.35821) -0.01679
+            120m - 320  (0.375)   init
         */
 
+        // C:\Users\'user'\AppData\Local\HLL\Saved\Config\WindowsNoEditor\GameUserSettings.ini
+        // to get inv mouse : InvertMouseFirstPerson=True/False
+        /* Feature : Rocket distance indicator
+         The displayed value depends on 3 variables:
+            - In-game mouse sensitivity with ADS (ADSMouseSensitivity under GameUserSettings.ini)
+            - Mouse cursor speed under windows (between 1 to 20, default:10)
+            - Mouse DPI resolution (device driver, ex with logitech G502: 1500 DPI)
+
+        How to align CORRECTLY ping with marker : 
+            ![ping-ig](https://user-images.githubusercontent.com/62154281/182184856-a7c5c26f-fb45-4d90-be55-be3fa41c9fa9.png)
+            ![ping-map](https://user-images.githubusercontent.com/62154281/182184874-1e2234f0-a805-4aa0-b136-32a52085dc96.png)
+        */
+        internal static readonly double RATIO_BAZOOKA = 0.3012; // TO CHECK & MODIFY
+        internal static readonly double RATIO_PANZERSCHRECK = 0.2782; // TO CHECK & MODIFY
+        internal static readonly double RATIO_WITHOUT_STEADY = 1.24; // TO CHECK & MODIFY
+
+        internal static readonly int SCALING_VALUE = 1000; // GOOD - DO NOT CHANGE
+        internal static readonly int INDICATOR_TIMER = 5000; // in milliseconds
         internal static bool Terminate { get; set; }
         internal static bool IsHotKey { get; set; }
         internal static bool IsSelectFocused { get; set; }
