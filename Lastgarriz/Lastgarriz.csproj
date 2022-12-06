@@ -1,20 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <!--
     <UseWindowsForms>true</UseWindowsForms>
+    -->
     <ApplicationIcon>Assets\Img\AppIcon.ico</ApplicationIcon>
     <Copyright>Copyright © 2022 maxensas</Copyright>
-    <Version>0.1.2</Version>
-    <AssemblyVersion>0.1.2.0</AssemblyVersion>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageProjectUrl>https://github.com/maxensas/lastgarriz</PackageProjectUrl>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Platforms>AnyCPU</Platforms>
     <Authors>Lastgarriz</Authors>
     <Company>Lastgarriz</Company>
-    <FileVersion>0.1.2.0</FileVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -51,8 +53,9 @@
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="TesseractOCR" Version="5.2.14" />
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <Content Include="Assets\Data\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <!--<CopyToPublishDirectory>Always</CopyToPublishDirectory>-->
@@ -64,6 +67,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Img\Garrison.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\Img\Artillery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\Img\Map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\Img\Panzerschreck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\Img\Queue.png" />
   </ItemGroup>
   <ItemGroup>
     <!--Maybe move to new library .NET6 utf8 json if good perf -->

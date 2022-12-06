@@ -17,6 +17,13 @@ namespace Lastgarriz.Models.Serializable
         [DataMember(Name = "devmode")]
         internal bool DevMode { get; set; } = false;
 
+        [DataMember(Name = "show_nohold_values")]
+        internal bool ShowNoHoldValues { get; set; } = false;
+
+        [DataMember(Name = "opacity")]
+        internal double Opacity { get; set; } = 100;
+
+        // METHODS USING THEM NOT USED
         [DataMember(Name = "inverted_mouse")]
         internal bool InvertedMouse { get; set; } = false;
 
@@ -28,8 +35,5 @@ namespace Lastgarriz.Models.Serializable
 
         [DataMember(Name = "convert_indicator")]
         internal bool ConvertIndicator { get; set; } = false;
-
-        [DataMember(Name = "opacity")]
-        internal double Opacity { get; set; } = 100;
     }
 }

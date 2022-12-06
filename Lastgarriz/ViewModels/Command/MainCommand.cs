@@ -45,11 +45,14 @@ namespace Lastgarriz.ViewModels.Command
         {
             static void DoWork()
             {
-                Application.Current.MainWindow.IsEnabled = false;
-                Application.Current.MainWindow.Close();
-                GC.Collect(); // find finalizable objects
-                GC.WaitForPendingFinalizers(); // wait until finalizers executed
-                GC.Collect(); // collect finalized objects
+                if (Application.Current.MainWindow is not null)
+                {
+                    Application.Current.MainWindow.IsEnabled = false;
+                    Application.Current.MainWindow.Close();
+                    GC.Collect(); // find finalizable objects
+                    GC.WaitForPendingFinalizers(); // wait until finalizers executed
+                    GC.Collect(); // collect finalized objects
+                }
             }
 
             if (commandParameter is string)
@@ -124,10 +127,10 @@ namespace Lastgarriz.ViewModels.Command
 
         private static void OnOpenSettings(object commandParameter)
         {
-            IntPtr pHwnd = Native.FindWindow(null, Strings.View.CONFIGURATION);
+            IntPtr pHwnd = NativeWin.FindWindow(null, Strings.View.CONFIGURATION);
             if (pHwnd.ToInt32() > 0)
             {
-                Native.SendMessage(pHwnd, Native.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                NativeWin.SendMessage(pHwnd, NativeWin.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
             }
             Application.Current.MainWindow.IsEnabled = false;
             Application.Current.MainWindow.Close();

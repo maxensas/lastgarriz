@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 using System.Windows;
 
 namespace Lastgarriz.Util.Interop
 {
-    internal static class Native
+    /// <summary>
+    /// Helper class containing User32, KERNEL32, GDI32 API functions
+    /// </summary>
+    internal static class NativeWin // The mess
     {
         [DllImport("user32.dll")] internal static extern bool BringWindowToTop(IntPtr hWnd);
 
@@ -12,7 +17,7 @@ namespace Lastgarriz.Util.Interop
 
         //[DllImport("user32.dll")] internal static extern IntPtr SetClipboardViewer(IntPtr hWnd);
 
-        //[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)] internal static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)] internal static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
         //[DllImport("user32.dll")] internal static extern bool ChangeClipboardChain(IntPtr hWnd, IntPtr hWndNext);
         //[DllImport("user32.dll", CharSet = CharSet.Unicode)] internal static extern IntPtr FindWindowEx(IntPtr parenthWnd, IntPtr childAfter, string lpClassName, string lpWindowName);
         internal const int WM_DRAWCLIPBOARD = 0x0308;
@@ -26,7 +31,7 @@ namespace Lastgarriz.Util.Interop
 
         [DllImport("user32.dll")] internal static extern IntPtr GetForegroundWindow();
 
-        //[DllImport("user32.dll")] internal static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")] internal static extern bool SetForegroundWindow(IntPtr hWnd);
 
         internal const int GWL_EXSTYLE = -20;
         internal const int WS_EX_NOACTIVATE = 0x08000000;
@@ -39,6 +44,12 @@ namespace Lastgarriz.Util.Interop
 
         [DllImport("user32.dll")] internal static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
+
+        [DllImport("KERNEL32.DLL", EntryPoint = "SetProcessWorkingSetSize", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        internal static extern bool SetProcessWorkingSetSize(IntPtr pProcess, int dwMinimumWorkingSetSize, int dwMaximumWorkingSetSize);
+
+        [DllImport("KERNEL32.DLL", EntryPoint = "GetCurrentProcess", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        internal static extern IntPtr GetCurrentProcess();
         /*
         [DllImport("user32.dll")] internal static extern uint GetWindowThreadProcessId(IntPtr hwnd, IntPtr proccess);
         [DllImport("user32.dll")] internal static extern IntPtr GetKeyboardLayout(uint thread);
@@ -51,7 +62,12 @@ namespace Lastgarriz.Util.Interop
         internal const int WM_INPUT = 0x00FF;
         internal const int WM_HOTKEY = 0x312;
         internal const int VK_CONTROL = 0x11;
+
         internal const int VK_MBUTTON = 0x04;
+        internal const int VK_LBUTTON = 0x01;
+        internal const int VK_RBUTTON = 0x02;
+        internal const int VK_XBUTTON1 = 0x05;
+        internal const int VK_XBUTTON2 = 0x06;
         /// <summary>
         /// Struct representing a point.
         /// </summary>
@@ -75,8 +91,7 @@ namespace Lastgarriz.Util.Interop
 
         internal static Point GetCursorPosition()
         {
-            POINT lpPoint;
-            GetCursorPos(out lpPoint);
+            GetCursorPos(out POINT lpPoint);
             // NOTE: If you need error handling
             // bool success = GetCursorPos(out lpPoint);
             // if (!success)
@@ -87,10 +102,10 @@ namespace Lastgarriz.Util.Interop
         [StructLayout(LayoutKind.Sequential)]
         internal struct RECT
         {
-            internal long left; // Specifies the x-coordinate of the upper-left corner of the rectangle.
-            internal long top; // Specifies the y-coordinate of the upper-left corner of the rectangle.
-            internal long right; // Specifies the x-coordinate of the lower-right corner of the rectangle.
-            internal long bottom; // Specifies the y-coordinate of the lower-right corner of the rectangle.
+            internal int left; // Specifies the x-coordinate of the upper-left corner of the rectangle.
+            internal int top; // Specifies the y-coordinate of the upper-left corner of the rectangle.
+            internal int right; // Specifies the x-coordinate of the lower-right corner of the rectangle.
+            internal int bottom; // Specifies the y-coordinate of the lower-right corner of the rectangle.
             
             //public static implicit operator Rect(RECT point)
             //{
@@ -100,8 +115,70 @@ namespace Lastgarriz.Util.Interop
 
         [DllImport("user32.dll")] internal static extern bool SetCursorPos(int x, int y);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        internal static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, UIntPtr dwExtraInfo);
+        private const uint MOUSEEVENTF_LEFTDOWN = 0x02;
+        private const uint MOUSEEVENTF_LEFTUP = 0x04;
+        private const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
+        private const uint MOUSEEVENTF_RIGHTUP = 0x10;
+
+        internal static void SendMouseLeftClick()
+        {
+            Thread.Sleep(50);
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+            /*
+            GetCursorPos(out POINT lpPoint);
+            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, (uint)lpPoint.X, (uint)lpPoint.Y, 0, 0);*/
+        }
+
         [DllImport("user32.dll")] internal static extern int GetWindowRect(IntPtr hWnd, out RECT lpRect);
         //[DllImport("user32.dll")] internal static extern bool GetClipCursor(out RECT lpRect);
+
+        [DllImport("user32.dll")]
+        internal static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetDesktopWindow();
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetWindowDC(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        internal static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        const int WS_EX_TRANSPARENT = 0x00000020;
+
+        [DllImport("user32.dll")]
+        internal static extern int GetWindowLong(IntPtr hwnd, int index);
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
+
+        internal static void SetWindowExTransparent(IntPtr hwnd)
+        {
+            var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+        }
+
+        /* GDI32 */
+        internal const int SRCCOPY = 0x00CC0020; // BitBlt dwRop parameter
+        [DllImport("gdi32.dll")]
+        internal static extern bool BitBlt(IntPtr hObject, int nXDest, int nYDest,
+            int nWidth, int nHeight, IntPtr hObjectSource,
+            int nXSrc, int nYSrc, int dwRop);
+        [DllImport("gdi32.dll")]
+        internal static extern bool StretchBlt(IntPtr hObject, int xDest, int yDest,
+            int wDest, int hDest, IntPtr hObjectSource,
+            int xSrc, int ySrc, int wSrc, int hSrc, int dwRop);
+        [DllImport("gdi32.dll")]
+        internal static extern IntPtr CreateCompatibleBitmap(IntPtr hDC, int nWidth,
+            int nHeight);
+        [DllImport("gdi32.dll")]
+        internal static extern IntPtr CreateCompatibleDC(IntPtr hDC);
+        [DllImport("gdi32.dll")]
+        internal static extern bool DeleteDC(IntPtr hDC);
+        [DllImport("gdi32.dll")]
+        internal static extern bool DeleteObject(IntPtr hObject);
+        [DllImport("gdi32.dll")]
+        internal static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
 
         //internal const int WM_ACTIVATEAPP = 0x1c;
         //internal const int WM_KILLFOCUS = 0x0008; 

@@ -1,20 +1,6 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.Util.Interop;
-using Lastgarriz.ViewModels;
+﻿using Lastgarriz.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Lastgarriz.Views
 {
@@ -23,28 +9,17 @@ namespace Lastgarriz.Views
     /// </summary>
     public partial class RocketWindow : Window
     {
-        public RocketViewModel ViewModel { get; private set; } = new();
+        public RocketViewModel ViewModel { get; private set; }
 
-        public RocketWindow()
+        public RocketWindow(bool isSchreck)
         {
             InitializeComponent();
 
+            ViewModel = new(isSchreck);
             DataContext = ViewModel;
             
             Left = (SystemParameters.PrimaryScreenWidth - Width) / 2; 
             Top = (SystemParameters.PrimaryScreenHeight - Height) / 2;//1.8
-        }
-
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            //IsEnabled = true;
-            /*
-            IntPtr findHwnd = Native.FindWindow(Strings.HllClass, Strings.HllCaption);
-            bool hllLaunched = findHwnd.ToInt32() > 0;
-            if (hllLaunched)
-            {
-                Native.BringWindowToTop(findHwnd);
-            }*/
         }
         /*
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -56,5 +31,24 @@ namespace Lastgarriz.Views
                Native.BringWindowToTop(findHwnd);
            }
         }*/
+        protected override void OnClosed(EventArgs e)
+        {
+            //cross.Children.Clear();
+
+            this.Content = null;
+            DataContext = null;
+            this.ViewModel = null;
+            
+
+            base.OnClosed(e);
+
+            //Native.SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, -1, -1);
+            /*
+            if (chkCleanup.IsChecked == true)
+            {
+                BindingOperations.ClearBinding(leak, TextBlock.TextProperty);
+            }
+            this.ClearValue(Canvas.prop);*/
+        }
     }
 }

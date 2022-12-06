@@ -16,16 +16,16 @@ namespace Lastgarriz.ViewModels
         private bool devMode;
         private bool invertedMouse;
         private bool steadyAim;
-        private bool schreckZook;
         private bool convertIndicator;
+        private bool showNoHoldValues;
         private FeaturesViewModel features = new();
 
         public bool DisableStartup { get => disableStartup; set => SetProperty(ref disableStartup, value); }
         public bool DevMode { get => devMode; set => SetProperty(ref devMode, value); }
         public bool InvertedMouse { get => invertedMouse; set => SetProperty(ref invertedMouse, value); }
         public bool SteadyAim { get => steadyAim; set => SetProperty(ref steadyAim, value); }
-        public bool SchreckZook { get => schreckZook; set => SetProperty(ref schreckZook, value); }
         public bool ConvertIndicator { get => convertIndicator; set => SetProperty(ref convertIndicator, value); }
+        public bool ShowNoHoldValues { get => showNoHoldValues; set => SetProperty(ref showNoHoldValues, value); }
         public FeaturesViewModel Features { get => features; set => SetProperty(ref features, value); }
 
         public ConfigCommand Commands { get; private set; }
@@ -87,10 +87,7 @@ namespace Lastgarriz.ViewModels
 
             DisableStartup = Config.Options.DisableStartupMessage;
             DevMode = Config.Options.DevMode;
-            InvertedMouse = Config.Options.InvertedMouse;
-            SteadyAim = Config.Options.SteadyAim;
-            SchreckZook = Config.Options.SchreckZook;
-            ConvertIndicator = Config.Options.ConvertIndicator;
+            ShowNoHoldValues = Config.Options.ShowNoHoldValues;
 
             foreach (var item in Config.Shortcuts)
             {
@@ -114,9 +111,21 @@ namespace Lastgarriz.ViewModels
                             Features.Rocket_start.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
                             Features.Rocket_start.IsEnable = item.Enable;
                             break;
-                        case Strings.Feature.ROCKETINDICATOR_ENABLE:
-                            Features.Rocket_enable.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
-                            Features.Rocket_enable.IsEnable = item.Enable;
+                        case Strings.Feature.ROCKETINDICATOR_US:
+                            Features.Rocket_us.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
+                            Features.Rocket_us.IsEnable = item.Enable;
+                            break;
+                        case Strings.Feature.ROCKETINDICATOR_GER:
+                            Features.Rocket_ger.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
+                            Features.Rocket_ger.IsEnable = item.Enable;
+                            break;
+                        case Strings.Feature.MAP_OPEN:
+                            Features.Map_open.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
+                            Features.Map_open.IsEnable = item.Enable;
+                            break;
+                        case Strings.Feature.MAP_RECORD:
+                            Features.Map_record.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
+                            Features.Map_record.IsEnable = item.Enable;
                             break;
                         case Strings.Feature.AUTOQUEUE:
                             Features.Autoqueue.Hotkey = HotKey.GetModString(item.Modifier) + kc.ConvertToString(item.Keycode);
@@ -143,10 +152,7 @@ namespace Lastgarriz.ViewModels
             //Config.Options.Opacity
             Config.Options.DisableStartupMessage = DisableStartup;
             Config.Options.DevMode = DevMode;
-            Config.Options.InvertedMouse = InvertedMouse;
-            Config.Options.SteadyAim = SteadyAim;
-            Config.Options.SchreckZook = SchreckZook;
-            Config.Options.ConvertIndicator = ConvertIndicator;
+            Config.Options.ShowNoHoldValues = ShowNoHoldValues;
             //Config.Options.CheckUpdates = true;
 
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo(Strings.Culture[Config.Options.Language]);
@@ -177,10 +183,25 @@ namespace Lastgarriz.ViewModels
                             item.Keycode = VerifyKeycode(Features.Rocket_start, item.Keycode);
                             item.Enable = Features.Rocket_start.IsEnable;
                             break;
-                        case Strings.Feature.ROCKETINDICATOR_ENABLE:
-                            item.Modifier = HotKey.GetModifier(Features.Rocket_enable.Hotkey);
-                            item.Keycode = VerifyKeycode(Features.Rocket_enable, item.Keycode);
-                            item.Enable = Features.Rocket_enable.IsEnable;
+                        case Strings.Feature.ROCKETINDICATOR_US:
+                            item.Modifier = HotKey.GetModifier(Features.Rocket_us.Hotkey);
+                            item.Keycode = VerifyKeycode(Features.Rocket_us, item.Keycode);
+                            item.Enable = Features.Rocket_us.IsEnable;
+                            break;
+                        case Strings.Feature.ROCKETINDICATOR_GER:
+                            item.Modifier = HotKey.GetModifier(Features.Rocket_ger.Hotkey);
+                            item.Keycode = VerifyKeycode(Features.Rocket_ger, item.Keycode);
+                            item.Enable = Features.Rocket_ger.IsEnable;
+                            break;
+                        case Strings.Feature.MAP_OPEN:
+                            item.Modifier = HotKey.GetModifier(Features.Map_open.Hotkey);
+                            item.Keycode = VerifyKeycode(Features.Map_open, item.Keycode);
+                            item.Enable = Features.Map_open.IsEnable;
+                            break;
+                        case Strings.Feature.MAP_RECORD:
+                            item.Modifier = HotKey.GetModifier(Features.Map_record.Hotkey);
+                            item.Keycode = VerifyKeycode(Features.Map_record, item.Keycode);
+                            item.Enable = Features.Map_record.IsEnable;
                             break;
                         case Strings.Feature.AUTOQUEUE:
                             item.Modifier = HotKey.GetModifier(Features.Autoqueue.Hotkey);

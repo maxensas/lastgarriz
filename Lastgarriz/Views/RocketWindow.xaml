@@ -8,7 +8,6 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:conv="clr-namespace:Lastgarriz.Util.Converter"
         d:DataContext="{d:DesignInstance Type=t:RocketViewModel}"
-        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -16,42 +15,147 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="None" Width="240" Height="120" Focusable="False" IsEnabled="False"
+        mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStyle="None" Width="{x:Static SystemParameters.PrimaryScreenWidth}" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Focusable="False" IsEnabled="False"
         Title="Rocket" AllowsTransparency="True" Topmost="True" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center">
+    <!-- Width="240" Height="120" -->
     <Window.Background>
         <SolidColorBrush Opacity="0"/>
     </Window.Background>
-    <Grid Width="240" Height="120" Visibility="{Binding ShowWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <Border Height="120" Width="230" d:Visibility="Visible" Visibility="{Binding ShowDisclaimer, Converter={StaticResource InverseBoolToVisConverter}}" Background="Transparent" BorderThickness="2" CornerRadius="3">
+    <Window.Resources>
+        <!--Styles that affects targetTypes -->
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="1" Direction="330" Color="Black" Opacity="0.8" BlurRadius="2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Line">
+            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <!--Styles that extends -->
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="GreenIndicator">
+            <Setter Property="Foreground" Value="Lime" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="MidGreenIndicator">
+            <Setter Property="Foreground" Value="Lime" />
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="RedIndicator">
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="OrangeIndicator">
+            <Setter Property="Foreground" Value="Orange" />
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="YellowIndicator">
+            <Setter Property="Foreground" Value="Yellow" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="WhiteIndicator">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="MidWhiteIndicator">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Opacity" Value="0.1"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Line}}" TargetType="Line" x:Key="Crosshair">
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="Opacity" Value="0.1" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Line}}" TargetType="Line" x:Key="WhiteLine">
+            <Setter Property="Stroke" Value="White"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Line}}" TargetType="Line" x:Key="OrangeLine">
+            <Setter Property="Stroke" Value="Orange"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Line}}" TargetType="Line" x:Key="YellowLine">
+            <Setter Property="Stroke" Value="Yellow"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Line}}" TargetType="Line" x:Key="LimeLine">
+            <Setter Property="Stroke" Value="Lime"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type Line}}" TargetType="Line" x:Key="RedLine">
+            <Setter Property="Stroke" Value="Red"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Width="{x:Static SystemParameters.PrimaryScreenWidth}" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Visibility="{Binding ShowWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Width="{x:Static SystemParameters.PrimaryScreenWidth}" Height="{x:Static SystemParameters.PrimaryScreenHeight}" d:Visibility="Visible" Visibility="{Binding ShowDisclaimer, Converter={StaticResource InverseBoolToVisConverter}}" Background="Transparent" BorderThickness="2" CornerRadius="3">
             <Border.BorderBrush>
                 <SolidColorBrush Color="Lime" Opacity="0"/>
             </Border.BorderBrush>
             <Grid>
                 <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Line X1="{Binding Xhair}" Y1="0" X2="{Binding Xhair}" Y2="12" d:Stroke="Lime" Stroke="{Binding CrosshairColor}" StrokeThickness="3" />
-                    <Line X1="-7" Y1="0" X2="-7" Y2="16" Stroke="White" StrokeThickness="3">
-                        <Line.Effect>
-                            <DropShadowEffect ShadowDepth="2" BlurRadius="7" Color="Black" Direction="270" Opacity="0.5"/>
-                        </Line.Effect>
-                    </Line>
-                    <Line X1="7" Y1="0" X2="7" Y2="16" Stroke="White" StrokeThickness="3" />
-                    <Line X1="-14" Y1="2" X2="-6" Y2="2" Stroke="White" StrokeThickness="4" />
-                    <Line X1="6" Y1="2" X2="14" Y2="2" Stroke="White" StrokeThickness="4" />
+                    <Line Visibility="Hidden" X1="{Binding Xhair}" X2="{Binding Xhair}" Y1="0" Y2="480" d:Stroke="Lime" Stroke="{Binding CrosshairColor}" />
+                    <Line X1="-40" X2="-13" Y1="1" Y2="1" Style="{StaticResource Crosshair}" />
+                    <Line X1="-12" X2="-12" Y1="0" d:Y2="540" Y2="{Binding CrosshairValue.Height}" Style="{StaticResource Crosshair}"/>
+                    <Line X1="13" X2="40" Y1="1" Y2="1" Style="{StaticResource Crosshair}" />
+                    <Line X1="12" X2="12" Y1="0" d:Y2="540" Y2="{Binding CrosshairValue.Height}" Style="{StaticResource Crosshair}" />
                 </Canvas>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,55,0,0" FontSize="18" d:Text="value" Text="{Binding Indicator}" FontWeight="Bold" Foreground="White" FontFamily="Consolas">
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,95,0,0" FontSize="18" d:Text="kind" Text="{Binding Kind}" FontWeight="Bold" Foreground="White" FontFamily="Consolas">
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
-                    </TextBlock.Effect>
-                </TextBlock>
+
+                <Grid Tag="Working project">
+                    <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Canvas.Left="-29" Canvas.Top="{Binding CrosshairValue.TxtNoHold075}" Text="75" Style="{StaticResource OrangeIndicator}" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Canvas.Left="-35" Canvas.Top="{Binding CrosshairValue.TxtNoHold100}" Text="100" Style="{StaticResource YellowIndicator}" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Canvas.Left="-35" Canvas.Top="{Binding CrosshairValue.TxtNoHold125}" Text="125" Style="{StaticResource OrangeIndicator}" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Canvas.Left="-35" Canvas.Top="{Binding CrosshairValue.TxtNoHold150}" Text="150" Style="{StaticResource YellowIndicator}" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Canvas.Left="-35" Canvas.Top="{Binding CrosshairValue.TxtNoHold175}" Text="175" Style="{StaticResource OrangeIndicator}" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <TextBlock Canvas.Left="-35" Canvas.Top="{Binding CrosshairValue.TxtNoHold200}" Text="200" Style="{StaticResource YellowIndicator}" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold100}" Text="100" Style="{StaticResource GreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold150}" Text="150" Style="{StaticResource MidGreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold200}" Text="200" Style="{StaticResource GreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold250}" Text="250" Style="{StaticResource MidGreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold300}" Text="300" Style="{StaticResource GreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold350}" Text="350" Style="{StaticResource MidGreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold400}" Text="400" Style="{StaticResource GreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold450}" Text="450" Style="{StaticResource MidGreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold500}" Text="500" Style="{StaticResource GreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold550}" Text="550" Style="{StaticResource MidGreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold600}" Text="600" Style="{StaticResource GreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold650}" Text="650" Style="{StaticResource MidGreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold700}" Text="700" Style="{StaticResource GreenIndicator}"/>
+                        <TextBlock Canvas.Left="17" Canvas.Top="{Binding CrosshairValue.TxtHold750}" Text="{Binding CrosshairValue.TxtLast}" Style="{StaticResource MidGreenIndicator}"/>
+                        <TextBlock Canvas.Left="-57" Canvas.Top="{Binding CrosshairValue.TxtNoHold960}" Text="max 960" Style="{StaticResource RedIndicator}" d:Visibility="Visible" Visibility="{Binding ShowMaxNoHoldSchreck, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                        <Line X1="-8" X2="0" Y1="{Binding CrosshairValue.LineNoHold075}" Y2="{Binding CrosshairValue.LineNoHold075}" Style="{StaticResource OrangeLine}" Tag="75m" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Line X1="-8" X2="0" Y1="{Binding CrosshairValue.LineNoHold100}" Y2="{Binding CrosshairValue.LineNoHold100}" Style="{StaticResource YellowLine}" Tag="100m" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Line X1="-8" X2="0" Y1="{Binding CrosshairValue.LineNoHold125}" Y2="{Binding CrosshairValue.LineNoHold125}" Style="{StaticResource OrangeLine}" Tag="125m" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Line X1="-8" X2="0" Y1="{Binding CrosshairValue.LineNoHold150}" Y2="{Binding CrosshairValue.LineNoHold150}" Style="{StaticResource YellowLine}" Tag="150m" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Line X1="-8" X2="0" Y1="{Binding CrosshairValue.LineNoHold175}" Y2="{Binding CrosshairValue.LineNoHold175}" Style="{StaticResource OrangeLine}" Tag="175m" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Line X1="-8" X2="0" Y1="{Binding CrosshairValue.LineNoHold200}" Y2="{Binding CrosshairValue.LineNoHold200}" Style="{StaticResource YellowLine}" Tag="200m" Visibility="{Binding ShowNoHoldValues, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold100}" Y2="{Binding CrosshairValue.LineHold100}" Style="{StaticResource LimeLine}" Tag="100m STEADY"  />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold150}" Y2="{Binding CrosshairValue.LineHold150}" Style="{StaticResource LimeLine}" Tag="150m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold200}" Y2="{Binding CrosshairValue.LineHold200}" Style="{StaticResource LimeLine}" Tag="200m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold250}" Y2="{Binding CrosshairValue.LineHold250}" Style="{StaticResource LimeLine}" Tag="250m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold300}" Y2="{Binding CrosshairValue.LineHold300}" Style="{StaticResource LimeLine}" Tag="300m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold350}" Y2="{Binding CrosshairValue.LineHold350}" Style="{StaticResource LimeLine}" Tag="350m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold400}" Y2="{Binding CrosshairValue.LineHold400}" Style="{StaticResource LimeLine}" Tag="400m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold450}" Y2="{Binding CrosshairValue.LineHold450}" Style="{StaticResource LimeLine}" Tag="450m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold500}" Y2="{Binding CrosshairValue.LineHold500}" Style="{StaticResource LimeLine}" Tag="500m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold550}" Y2="{Binding CrosshairValue.LineHold550}" Style="{StaticResource LimeLine}" Tag="550m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold600}" Y2="{Binding CrosshairValue.LineHold600}" Style="{StaticResource LimeLine}" Tag="600m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold650}" Y2="{Binding CrosshairValue.LineHold650}" Style="{StaticResource LimeLine}" Tag="650m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold700}" Y2="{Binding CrosshairValue.LineHold700}" Style="{StaticResource LimeLine}" Tag="700m STEADY" />
+                        <Line X1="-8" X2="8" Y1="{Binding CrosshairValue.LineHold750}" Y2="{Binding CrosshairValue.LineHold750}" Style="{StaticResource LimeLine}" Tag="750m-GER/730m-US STEADY" />
+                    </Canvas>
+                </Grid>
+
+                <TextBlock Margin="84,38,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Text="HOLD&#10;BREATH" TextAlignment="Left" Style="{StaticResource MidGreenIndicator}"/>
+                <Grid d:Visibility="Visible" Visibility="Hidden">
+                    <TextBlock Margin="-120,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" d:Text="value" Text="{Binding Indicator}" Foreground="White" Opacity="0.5"/>
+                    <TextBlock Margin="-120,62,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" d:Text="kind" Text="{Binding Kind}" Foreground="White" Opacity="0.5"/>
+                </Grid>
             </Grid>
         </Border>
         <Grid Height="40" d:Visibility="Hidden" Visibility="{Binding ShowDisclaimer, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0" FontSize="18" d:Text="value" Text="{Binding DisclaimerText}" FontWeight="Bold" Foreground="{Binding DisclaimerColor}"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-3,0,0" FontSize="18" d:Text="value" Text="{Binding DisclaimerText}" d:Foreground="White" Foreground="{Binding DisclaimerColor}"/>
         </Grid>
     </Grid>
 </Window>

@@ -12,18 +12,19 @@ namespace Lastgarriz
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainViewModel ViewModel { get; private set; } = new MainViewModel();
+        public MainViewModel ViewModel { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
+            ViewModel = new();
             DataContext = ViewModel;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (Native.GetForegroundWindow().Equals(Global.MainHwnd))
+            if (NativeWin.GetForegroundWindow().Equals(Global.MainHwnd))
             {
                 try
                 {
@@ -50,6 +51,11 @@ namespace Lastgarriz
 
             Keyboard.ClearFocus();
             this.Visibility = Visibility.Hidden;
+
+            if (Global.Terminate)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

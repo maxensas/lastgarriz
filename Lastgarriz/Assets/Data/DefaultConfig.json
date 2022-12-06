@@ -4,10 +4,7 @@
         "check_updates": true,
         "disable_startup_message": false,
         "devmode": false,
-        "inverted_mouse": false,
-        "steady_aim": false,
-        "schreck_zook": true,
-        "convert_indicator": false,
+		"show_nohold_values": true,
         "opacity": 0.7
     },
     "shortcuts": [
@@ -26,12 +23,12 @@
             "value": "nomater"
         },
         {
-            "enable": false,
-            "modifier": 2,
-            "fonction": "autoqueue",
-            "keycode": 123,
-            "value": "nomater"
-        },
+			"enable": false,
+			"modifier": 2,
+			"fonction": "autoqueue",
+			"keycode": 104,
+			"value": "nomater"
+		},
         {
             "enable": false,
             "modifier": 2,
@@ -54,18 +51,39 @@
             "value": "keylog"
         },
         {
-            "enable": true,
-            "modifier": 0,
-            "fonction": "rocket_start",
-            "keycode": 100,
-            "value": "keylog"
-        },
-        {
-            "enable": true,
-            "modifier": 2,
-            "fonction": "rocket_enable",
-            "keycode": 100,
-            "value": "nomater"
-        }
+			"enable": true,
+			"modifier": 0,
+			"fonction": "rocket_start",
+			"keycode": 4,
+			"value": "keylog"
+		},
+		{
+			"enable": true,
+			"modifier": 2,
+			"fonction": "rocket_ger",
+			"keycode": 100,
+			"value": "nomater"
+		},
+		{
+			"enable": true,
+			"modifier": 2,
+			"fonction": "rocket_us",
+			"keycode": 101,
+			"value": "nomater"
+		},
+		{
+			"enable": true,
+			"modifier": 0,
+			"fonction": "map_open",
+			"keycode": 107,
+			"value": "keylog"
+		},
+		{
+			"enable": true,
+			"modifier": 2,
+			"fonction": "map_record",
+			"keycode": 103,
+			"value": "nomater"
+		}
     ]
 }

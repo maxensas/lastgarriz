@@ -3,11 +3,10 @@ using Lastgarriz.Util.Interop;
 using Lastgarriz.Views;
 using System;
 using System.Runtime.InteropServices;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Lastgarriz.Util.Hook
@@ -19,6 +18,7 @@ namespace Lastgarriz.Util.Hook
 
         private SpongeWindow Sponge { get; set; } = new();
         private MainWindow Main { get; set; } = (MainWindow)System.Windows.Application.Current.MainWindow;
+        private TaskBarWindow TaskBar { get; set; } = new();
         private DispatcherTimer TimerRegister { get; set; }
 
         internal WndProcService()
@@ -32,6 +32,8 @@ namespace Lastgarriz.Util.Hook
 
             HotKey.InstallRegisterHotKey();
             TimerRegister.Start();
+
+            TaskBar.Name = Strings.View.TASKBAR;
         }
 
         internal static WndProcService Instance
@@ -53,24 +55,50 @@ namespace Lastgarriz.Util.Hook
         }
 
         private void RegisterTimer_Tick(object sender, EventArgs e) // WHEN USING SHORTCUTS : ENDLESS RUNNING PROCESS
-        { 
-            if (Native.GetForegroundWindow().Equals(Native.FindWindow(Strings.HllClass, Strings.HllCaption))) // IF you have HLL game window in focus
+        {
+            IntPtr hllHwnd = NativeWin.FindWindow(Strings.HllClass, Strings.HllCaption);
+            if (NativeWin.GetForegroundWindow().Equals(hllHwnd)) // IF you have HLL game window in focus
             {
                 if (!Global.IsHotKey) HotKey.InstallRegisterHotKey();
+
+                if (!Global.TaskBarActive)
+                {
+                    TaskBar.Show();
+                    Global.TaskBarActive = true;
+                }
+                return;
             }
-            else
+            if (Global.TaskBarActive)
             {
-                if (Global.IsHotKey) HotKey.RemoveRegisterHotKey(false);
+                TaskBar.Hide();
+                Global.TaskBarActive = false;
             }
+
+            if (Global.IsHotKey) HotKey.RemoveRegisterHotKey(false);
+
+            if (hllHwnd.ToInt32() > 0) // If HLL is launched
+            {
+                IntPtr pHwndCfg = NativeWin.FindWindow(null, Strings.View.CONFIGURATION);
+                if (pHwndCfg.ToInt32() > 0)
+                {
+                    HotKey.RemoveRegisterHotKey(true);
+                    return;
+                }
+            }
+
+            // TODO : TaskBar icons should only be managed in this method
+
+            //TaskBar.ViewModel.Map = TaskManager.MapHistoryTask?.Status is TaskStatus.Running;
+            //TaskBar.ViewModel.Artillery = TaskManager.KeystrokeCatcherTask?.Status is TaskStatus.Running;
         }
 
         private void ProcessMessage(Message message)
         {
             // Here we process incoming messages
-            if (!Global.HotkeyProcBlock && message.Msg == Native.WM_HOTKEY)
+            if (!Global.HotkeyProcBlock && message.Msg == NativeWin.WM_HOTKEY)
             {
                 Global.HotkeyProcBlock = true;
-                IntPtr findHwnd = Native.FindWindow(Strings.HllClass, Strings.HllCaption);
+                IntPtr findHwnd = NativeWin.FindWindow(Strings.HllClass, Strings.HllCaption);
                 bool hllLaunched = findHwnd.ToInt32() > 0;
 
                 int keyIdx = message.WParam.ToInt32();
@@ -82,59 +110,100 @@ namespace Lastgarriz.Util.Hook
                     string fonctionLower = shortcut.Fonction.ToLowerInvariant();
                     try
                     {
-                        if (Native.GetForegroundWindow().Equals(findHwnd) || DataManager.Instance.Config.Options.DevMode) // Only if HLL got the focus or in developer mode
+                        if (NativeWin.GetForegroundWindow().Equals(findHwnd) || DataManager.Instance.Config.Options.DevMode) // Only if HLL got the focus or in developer mode
                         {
                             if (fonctionLower is Strings.Feature.ARTILLERY_USGER or Strings.Feature.ARTILLERY_RU)
                             {
                                 bool rusianMetrics = fonctionLower is Strings.Feature.ARTILLERY_RU;
-                                IntPtr pHwnd = Native.FindWindow(null, Strings.View.ARTILLERY);
+                                IntPtr pHwnd = NativeWin.FindWindow(null, Strings.View.ARTILLERY);
                                 if (pHwnd.ToInt32() > 0)
                                 {
-                                    Native.SendMessage(pHwnd, Native.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                                    NativeWin.SendMessage(pHwnd, NativeWin.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                                    TaskBar.ViewModel.ArtilleryUssr = TaskBar.ViewModel.ArtilleryUsGer = false;
                                 }
                                 else
                                 {
                                     Main?.Close(); // close mainWindow
-                                    ArtilleryWindow artiWin = new(rusianMetrics);
-                                    artiWin.Name = Strings.View.ARTILLERY;
+                                    ArtilleryWindow artiWin = new(rusianMetrics)
+                                    {
+                                        Name = Strings.View.ARTILLERY
+                                    };
                                     artiWin.Show();
                                     artiWin.Visibility = Visibility.Visible;
+                                    TaskBar.ViewModel.ArtilleryUssr = rusianMetrics;
+                                    TaskBar.ViewModel.ArtilleryUsGer = !rusianMetrics;
                                     if (hllLaunched)
                                     {
-                                        Native.BringWindowToTop(findHwnd);
+                                        NativeWin.BringWindowToTop(findHwnd);
                                     }
                                 }
                             }
 
-                            if (fonctionLower is Strings.Feature.ROCKETINDICATOR_ENABLE)
+                            if (fonctionLower is Strings.Feature.ROCKETINDICATOR_GER or Strings.Feature.ROCKETINDICATOR_US)
                             {
-                                IntPtr pHwnd = Native.FindWindow(null, Strings.View.ROCKET);
+                                IntPtr pHwnd = NativeWin.FindWindow(null, Strings.View.ROCKET);
                                 if (pHwnd.ToInt32() > 0)
                                 {
                                     HwndSource hwndSource = HwndSource.FromHwnd(pHwnd);
                                     if (hwndSource.RootVisual is RocketWindow rocketWin)
                                     {
-                                        TaskManager.EndMouseCatcherTask(rocketWin.ViewModel);
+                                        //TaskManager.EndMouseCatcherTask(rocketWin.ViewModel);
+                                        TaskManager.EndRocketCrossairTask(rocketWin.ViewModel);
+                                        TaskBar.ViewModel.Panzerschreck = TaskBar.ViewModel.Bazooka = false;
                                     }
                                 }
                                 else
                                 {
                                     Main?.Close(); // close mainWindow
-                                    RocketWindow rocketWin = new();
-                                    rocketWin.Name = Strings.View.ROCKET;
+                                    bool isSchreck = fonctionLower is Strings.Feature.ROCKETINDICATOR_GER;
+                                    RocketWindow rocketWin = new(isSchreck)
+                                    {
+                                        Name = Strings.View.ROCKET
+                                    };
                                     rocketWin.Show();
                                     rocketWin.Visibility = Visibility.Visible;
                                     rocketWin.ViewModel.ShowWindow = true;
-                                    TaskManager.StartMouseCatcherTask(rocketWin.ViewModel);
-                                    
+                                    //TaskManager.StartMouseCatcherTask(rocketWin.ViewModel);
+                                    TaskManager.StartRocketCrossairTask(rocketWin.ViewModel);
+                                    TaskBar.ViewModel.Panzerschreck = isSchreck;
+                                    TaskBar.ViewModel.Bazooka = !isSchreck;
                                     if (hllLaunched)
                                     {
-                                        Native.BringWindowToTop(findHwnd);
+                                        NativeWin.BringWindowToTop(findHwnd);
                                     }
                                 }
                             }
+
+                            if (fonctionLower is Strings.Feature.MAP_RECORD)
+                            {
+                                if(TaskManager.MapHistoryTask?.Status is TaskStatus.Running)
+                                {
+                                    TaskManager.StopMapHistoryTask();
+                                    TaskBar.ViewModel.Map = false;
+                                }
+                                else
+                                {
+                                    string mapFolderName = DateTime.Now.ToString("yyMMdd-HH-mm");
+                                    TaskManager.StartMapHistoryTask(mapFolderName);
+                                    TaskBar.ViewModel.Map = true;
+                                }
+                            }
+
+                            if (fonctionLower is Strings.Feature.AUTOQUEUE)
+                            {
+                                if (TaskManager.ExtraQueueTask?.Status is TaskStatus.Running)
+                                {
+                                    TaskManager.StopExtraQueueTask();
+                                    TaskBar.ViewModel.Queue = false;
+                                }
+                                else
+                                {
+                                    TaskManager.StartExtraQueueTask();
+                                    TaskBar.ViewModel.Queue = true;
+                                }
+                            }
                         }
-                        
+
                         // In all case
                         /*
                         if (fonctionLower is Strings.Feature.CLOSE)
@@ -157,14 +226,16 @@ namespace Lastgarriz.Util.Hook
                         */
                         if (fonctionLower is Strings.Feature.CONFIG)
                         {
-                            IntPtr pHwnd = Native.FindWindow(null, Strings.View.CONFIGURATION);
+                            IntPtr pHwnd = NativeWin.FindWindow(null, Strings.View.CONFIGURATION);
                             if (pHwnd.ToInt32() > 0)
                             {
-                                Native.SendMessage(pHwnd, Native.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                                NativeWin.SendMessage(pHwnd, NativeWin.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
                             }
                             Main?.Close(); // close mainWindow
-                            ConfigWindow configWin = new();
-                            configWin.Name = Strings.View.CONFIGURATION;
+                            ConfigWindow configWin = new()
+                            {
+                                Name = Strings.View.CONFIGURATION
+                            };
                             configWin.Show();
                             configWin.Visibility = Visibility.Visible;
                         }

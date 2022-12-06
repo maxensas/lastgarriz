@@ -30,7 +30,7 @@ namespace Lastgarriz.Util.Hook
                     {
                         if (shortcut.Enable && shortcut.Value is not Strings.KEYLOG)
                         {
-                            Native.RegisterHotKey(Global.HookHwnd, 10001 + i, Convert.ToUInt32(shortcut.Modifier), (uint)Math.Abs(shortcut.Keycode));
+                            NativeWin.RegisterHotKey(Global.HookHwnd, 10001 + i, Convert.ToUInt32(shortcut.Modifier), (uint)Math.Abs(shortcut.Keycode));
                         }
                     }
                 }
@@ -55,7 +55,7 @@ namespace Lastgarriz.Util.Hook
                     {
                         if (shortcut.Enable && shortcut.Value is not Strings.KEYLOG)
                         {
-                            Native.UnregisterHotKey(Global.HookHwnd, 10001 + i);
+                            NativeWin.UnregisterHotKey(Global.HookHwnd, 10001 + i);
                         }
                     }
                 }
@@ -100,10 +100,30 @@ namespace Lastgarriz.Util.Hook
 
         internal static void SetHotKey(HotkeyViewModel vm, EventArgs e, bool canUseModAsHotKey)
         {
+            System.Windows.Forms.Keys actualKey;
+            MouseEventArgs mouseArg = null;
+            KeyEventArgs keyArg = null;
+            bool keyDown = false;
+            bool isKey = false, isMouse = false;
+            if (e is MouseEventArgs)
+            {
+                mouseArg = (MouseEventArgs)e;
+                if (mouseArg.LeftButton is MouseButtonState.Pressed)
+                {
+                    return;
+                }
+                mouseArg.Handled = isMouse = true;
+            }
             if (e is KeyEventArgs)
             {
-                var keyArg = (KeyEventArgs)e ;
-                var actualKey = GetVirtualKey(keyArg);
+                keyArg = (KeyEventArgs)e;
+                keyArg.Handled = isKey = true;
+                keyDown = keyArg.IsDown;
+            }
+
+            if (isKey || isMouse)
+            {
+                actualKey = isMouse ? GetMouseKey(mouseArg) : GetVirtualKey(keyArg);
 
                 var ignoreKeys = canUseModAsHotKey
                     ? new[] { System.Windows.Forms.Keys.LWin, System.Windows.Forms.Keys.RWin }
@@ -111,7 +131,7 @@ namespace Lastgarriz.Util.Hook
 
                 bool isModKey = Global.ModifierKeyList.Contains(actualKey);
 
-                if (keyArg.IsDown && !ignoreKeys.Contains(actualKey))
+                if ((keyDown || isMouse) && !ignoreKeys.Contains(actualKey))
                 {
                     var modifiers = new List<ModifierKeys>();
                     if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && !isModKey)
@@ -143,16 +163,17 @@ namespace Lastgarriz.Util.Hook
                         vm.Hotkey = hotKey;
                     }
                 }
-                keyArg.Handled = true;
                 return;
             }
-            if (e is MouseEventArgs)
-            {
-                var mouseArg = (MouseEventArgs)e;
+        }
 
-                //System.Windows.Forms.MouseButtons.
-                //System.Windows.Input.MouseButton
-            }
+        private static System.Windows.Forms.Keys GetMouseKey(MouseEventArgs m)
+        {
+            return m.RightButton is MouseButtonState.Pressed ? System.Windows.Forms.Keys.RButton :
+                m.MiddleButton is MouseButtonState.Pressed ? System.Windows.Forms.Keys.MButton :
+                m.XButton1 is MouseButtonState.Pressed ? System.Windows.Forms.Keys.XButton1 :
+                m.XButton2 is MouseButtonState.Pressed ? System.Windows.Forms.Keys.XButton2 
+                : System.Windows.Forms.Keys.LButton; //default
         }
 
         private static System.Windows.Forms.Keys GetVirtualKey(KeyEventArgs e)

@@ -1,6 +1,7 @@
 ﻿using Lastgarriz.Util.Hook;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -49,18 +50,24 @@ namespace Lastgarriz.Util
             ![ping-ig](https://user-images.githubusercontent.com/62154281/182184856-a7c5c26f-fb45-4d90-be55-be3fa41c9fa9.png)
             ![ping-map](https://user-images.githubusercontent.com/62154281/182184874-1e2234f0-a805-4aa0-b136-32a52085dc96.png)
         */
-        internal static readonly double RATIO_BAZOOKA = 0.3012; // TO CHECK & MODIFY
-        internal static readonly double RATIO_PANZERSCHRECK = 0.2782; // TO CHECK & MODIFY
-        internal static readonly double RATIO_WITHOUT_STEADY = 1.24; // TO CHECK & MODIFY
-
+        internal static readonly double RATIO_BAZOOKA = 0.3012; // WIP
+        internal static readonly double RATIO_PANZERSCHRECK = 0.2782; // WIP
+        internal static readonly double RATIO_WITHOUT_STEADY = 1.24; // WIP
         internal static readonly int SCALING_VALUE = 1000; // GOOD - DO NOT CHANGE
-        internal static readonly int INDICATOR_TIMER = 5000; // in milliseconds
+
+        internal static readonly int INDICATOR_TIMER = 8000; // in milliseconds
+        internal static readonly int LIMIT_MAP_TIMER = 10000; // in milliseconds
         internal static bool Terminate { get; set; }
         internal static bool IsHotKey { get; set; }
+        internal static bool TaskBarActive { get; set; }
         internal static bool IsSelectFocused { get; set; }
         internal static bool HotkeyProcBlock { get; set; }
         internal static bool FirstRegisterHK { get; set; }
         internal static bool FirstCheckUpdate { get; set; }
+
+        internal static int CrossUpdates { get; set; } = 0;
+
+        internal static long LastMapSaveTime { get; set; }
 
         internal static IntPtr MainHwnd { get; set; }
         internal static IntPtr HookHwnd { get; set; }
@@ -82,9 +89,41 @@ namespace Lastgarriz.Util
             { Keys.NumPad5, 5 }, { Keys.NumPad6, 6 }, { Keys.NumPad7, 7 }, { Keys.NumPad8, 8 }, { Keys.NumPad9, 9 }
         };
 
+        internal static Dictionary<KeyValuePair<int,int>, Rectangle> MapSizeList { get; private set; } = new()
+        {
+            { new KeyValuePair<int,int>(1920,1080), new Rectangle(520,70,880,902) }, // 1K
+            { new KeyValuePair<int,int>(2560,1440), new Rectangle(693,94,1173,1201) }, // 2K
+            { new KeyValuePair<int,int>(3840,2160), new Rectangle(1038,141,1762,1802) }, // 4K
+            { new KeyValuePair<int,int>(3325,1871), new Rectangle(900,121,1524,1562) },
+            { new KeyValuePair<int,int>(2880,1620), new Rectangle(779,105,1321,1352) },
+            { new KeyValuePair<int,int>(2715,1527), new Rectangle(735,99,1244,1274) },
+            { new KeyValuePair<int,int>(2351,1323), new Rectangle(636,86,1078,1104) },
+            { new KeyValuePair<int,int>(2103,1183), new Rectangle(569,77,964,987) },
+            { new KeyValuePair<int,int>(1440,900), new Rectangle(365,70,709,726) },
+            { new KeyValuePair<int,int>(1280,1024), new Rectangle(226,70,826,847) },
+            { new KeyValuePair<int,int>(1024,768), new Rectangle(219,70,585,598) }
+        };
+
         internal static List<Keys> ModifierKeyList { get; private set; } = new()
         {
             Keys.LShiftKey, Keys.RShiftKey, Keys.LControlKey, Keys.RControlKey, Keys.LWin, Keys.RWin, Keys.LMenu, Keys.RMenu // menu = alt
+        };
+
+        internal static List<string> BoxOk { get; private set; } = new()
+        {
+            "ok",
+            "vale",
+            "we" // chinese ZH & TW
+        };
+
+        internal static List<string> BoxCancel { get; private set; } = new()
+        {
+            "cancel",
+            "annuler",
+            "abbrechen",
+            "cancelar",
+            "anuluj",
+            "otmeha" // ru to test
         };
 
         internal static void InitGlobals()
