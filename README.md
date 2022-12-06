@@ -4,7 +4,7 @@
 [![Github all releases](https://img.shields.io/github/downloads/maxensas/lastgarriz/total.svg)](https://GitHub.com/maxensas/lastgarriz/releases/) [![Github latest release](https://img.shields.io/github/downloads/maxensas/lastgarriz/latest/total.svg)](https://GitHub.com/maxensas/lastgarriz/releases/)
 
 ### What is Lastgarriz?
-Lastgarriz is a third party tool that offers useful features for Hell Let Loose without interacting with it when playing !
+Lastgarriz is a third-party tool that offers useful features for Hell Let Loose without interacting with it while playing.
 
 ## Features provided :
 * Quick access to settings in order to modify hotkeys.
