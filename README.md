@@ -46,8 +46,8 @@ Lastgarriz has no database and does not collect personal data or identifier for 
 * Artillery metric converter :
 <img src="https://user-images.githubusercontent.com/62154281/162469233-b14671fd-c856-4b33-b3bf-6c35a09c0630.png" width="20%" height="20%">
 
-* Rocket crosshair by using FPS ping, you need to align each indicator with the middle of the ping's triangle :
+* Rocket crosshair by using FPS ping, align each indicator with the middle of the ping's triangle :
 <img src="https://user-images.githubusercontent.com/62154281/205952052-112da791-9b21-448b-882f-6d88f1c2fec3.png" width="10%" height="10%">
 
-* Rocket crosshair by using officer marker, you need to align each indicator with the bottom corner of the marker's rectangle :
+* Rocket crosshair by using officer marker, align each indicator with the bottom corner of the marker's rectangle :
 <img src="https://user-images.githubusercontent.com/62154281/205952238-286437b7-d28c-440d-9796-ab724e1aa6d4.png" width="10%" height="10%">
