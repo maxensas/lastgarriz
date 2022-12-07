@@ -4,6 +4,10 @@ using System.Windows.Threading;
 
 namespace Lastgarriz.Util
 {
+    /// <summary>
+    /// Used to send messages in foreground.
+    /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class WindowMessage
     {
         internal static void SendForeground(string message, string caption, MessageBoxButton button, MessageBoxImage icon)

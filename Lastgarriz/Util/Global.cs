@@ -7,6 +7,10 @@ using System.Windows.Forms;
 
 namespace Lastgarriz.Util
 {
+    /// <summary>
+    /// Centralize globals necessary for the application.
+    /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class Global
     {
         internal static readonly bool DEBUG_TIMERS = false;

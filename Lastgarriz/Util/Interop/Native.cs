@@ -9,6 +9,7 @@ namespace Lastgarriz.Util.Interop
     /// <summary>
     /// Helper class containing User32, KERNEL32, GDI32 API functions
     /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class NativeWin // The mess
     {
         [DllImport("user32.dll")] internal static extern bool BringWindowToTop(IntPtr hWnd);

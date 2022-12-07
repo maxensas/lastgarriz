@@ -13,6 +13,10 @@ using System.Windows.Threading;
 
 namespace Lastgarriz.Util
 {
+    /// <summary>
+    /// Contain all tak objects and methods needed by the application.
+    /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class TaskManager // more elegant please
     {
         internal static Task UpdateCheckerTask { get; private set; } // only last task launched

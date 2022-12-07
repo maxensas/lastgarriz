@@ -7,7 +7,7 @@ using System.Windows.Interop;
 namespace Lastgarriz.Views
 {
     /// <summary>
-    /// Logique d'interaction pour TaskBarWindow.xaml
+    /// Interaction logic for TaskBarWindow.xaml
     /// </summary>
     public partial class TaskBarWindow : Window
     {

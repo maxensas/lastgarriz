@@ -7,7 +7,7 @@ using System.Windows.Input;
 namespace Lastgarriz.Views
 {
     /// <summary>
-    /// Logique d'interaction pour ArtilleryWindow.xaml
+    /// Interaction logic for ArtilleryWindow.xaml
     /// </summary>
     public partial class ArtilleryWindow : Window
     {
@@ -40,10 +40,6 @@ namespace Lastgarriz.Views
         private void DragWindow(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
-            /*
-            var top = Top;
-            var left = Left;
-            */
         }
     }
 }

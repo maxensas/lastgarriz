@@ -6,6 +6,10 @@ using Lastgarriz.Models.Serializable;
 
 namespace Lastgarriz.Util
 {
+    /// <summary>
+    /// Used to manage application data.
+    /// </summary>
+    /// <remarks>This class can only be instancied once (singleton)</remarks>
     internal sealed class DataManager
     {
         private static DataManager instance = null;

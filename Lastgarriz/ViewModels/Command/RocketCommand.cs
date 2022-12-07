@@ -31,7 +31,7 @@ namespace Lastgarriz.ViewModels.Command
 
         private static void OnCloseRocketWindow(object commandParameter)
         {
-            
+            // NOT USED ANYMORE
         }
 
         private static bool CanLoadRocketWindow(object commandParameter)
@@ -41,7 +41,7 @@ namespace Lastgarriz.ViewModels.Command
 
         private static void OnLoadRocketWindow(object commandParameter)
         {
-            
+            // NOT USED ANYMORE
         }
     }
 }

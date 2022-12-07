@@ -8,6 +8,10 @@ using System.Windows.Input;
 
 namespace Lastgarriz.Util.Hook
 {
+    /// <summary>
+    /// Contain all methods needed to manage hotkey bindings.
+    /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class HotKey
     {
         // constants

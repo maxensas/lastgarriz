@@ -2,7 +2,11 @@
 
 namespace Lastgarriz.Util
 {
-    internal static class Strings // only const, no parameters
+    /// <summary>
+    /// Contain all constant strings needed by the application.
+    /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
+    internal static class Strings
     {
         internal static readonly string HllClass = "UnrealWindow";
         internal static readonly string HllCaption = "Hell Let Loose  "; // HLL-Win64-Shipping.exe // "Hell Let Loose  "

@@ -4,6 +4,10 @@ using Utf8Json.Resolvers;
 
 namespace Lastgarriz.Util
 {
+    /// <summary>
+    /// Used for Serialization with Utf8Json library
+    /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class Json //: IJsonFormatter
     {
         internal static string Serialize<T>(object obj) where T : class

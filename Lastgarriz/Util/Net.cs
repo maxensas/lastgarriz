@@ -13,6 +13,10 @@ namespace Lastgarriz.Util
         Default = 0x00
     }
 
+    /// <summary>
+    /// Manage http resources and requests.
+    /// </summary>
+    /// <remarks>This class can only be instancied once (singleton)</remarks>
     internal sealed class Net
     {
         private static Net instance = null;

@@ -6,7 +6,7 @@ using System.Windows.Input;
 namespace Lastgarriz.Views
 {
     /// <summary>
-    /// Logique d'interaction pour ConfigWindow.xaml
+    /// Interaction logic for ConfigWindow.xaml
     /// </summary>
     public partial class ConfigWindow : Window
     {

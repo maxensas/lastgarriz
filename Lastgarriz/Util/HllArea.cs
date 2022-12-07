@@ -4,6 +4,10 @@ using System.Drawing;
 
 namespace Lastgarriz.Util
 {
+    /// <summary>
+    /// Contain specific area data (HLL Server browser) used for image cropping / OCR.
+    /// </summary>
+    /// <remarks>This class should be instancied.</remarks>
     internal class HllArea
     {
         internal Rectangle Vip { get; private set; }

@@ -11,6 +11,10 @@ using System.Windows.Threading;
 
 namespace Lastgarriz.Util.Hook
 {
+    /// <summary>
+    /// Interaction logic for WndProcService.cs
+    /// </summary>
+    /// <remarks>This class can only be instancied once (singleton)</remarks>
     internal sealed class WndProcService //: IDisposable
     {
         private static WndProcService instance = null;
@@ -29,7 +33,7 @@ namespace Lastgarriz.Util.Hook
             TimerRegister = new(DispatcherPriority.Normal);
             TimerRegister.Interval = TimeSpan.FromMilliseconds(100);
             TimerRegister.Tick += new EventHandler(RegisterTimer_Tick);
-
+                
             HotKey.InstallRegisterHotKey();
             TimerRegister.Start();
 
@@ -54,6 +58,9 @@ namespace Lastgarriz.Util.Hook
             }
         }
 
+        /// <summary>
+        /// This method is called by a DispatcherTimer each 100ms throughout application execution.
+        /// </summary>
         private void RegisterTimer_Tick(object sender, EventArgs e) // WHEN USING SHORTCUTS : ENDLESS RUNNING PROCESS
         {
             IntPtr hllHwnd = NativeWin.FindWindow(Strings.HllClass, Strings.HllCaption);
@@ -92,6 +99,9 @@ namespace Lastgarriz.Util.Hook
             //TaskBar.ViewModel.Artillery = TaskManager.KeystrokeCatcherTask?.Status is TaskStatus.Running;
         }
 
+        /// <summary>
+        /// This method is called each time a registered hotkey is pressed.
+        /// </summary>
         private void ProcessMessage(Message message)
         {
             // Here we process incoming messages

@@ -14,6 +14,10 @@ using TesseractOCR;
 
 namespace Lastgarriz.Util
 {
+    /// <summary>
+    /// Centralize generalist methods necessary for the application.
+    /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class Common
     {
         internal static string GetInnerExceptionMessages(Exception exp)

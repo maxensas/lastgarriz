@@ -11,8 +11,9 @@ using TesseractOCR;
 namespace Lastgarriz.Util
 {
     /// <summary>
-    /// Provides functions to capture the entire screen, or a particular window, and save it to a file.
+    /// Provides methods to capture screen or a particular window, crop image, check hll map, save to file.
     /// </summary>
+    /// <remarks>This is a static class and can not be instancied.</remarks>
     internal static class ScreenCapture
     {
         /// <summary>
