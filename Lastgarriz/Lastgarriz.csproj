@@ -7,15 +7,15 @@
     <UseWindowsForms>true</UseWindowsForms>
     -->
     <ApplicationIcon>Assets\Img\AppIcon.ico</ApplicationIcon>
-    <Copyright>Copyright © 2022 maxensas</Copyright>
+    <Copyright></Copyright>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageProjectUrl>https://github.com/maxensas/lastgarriz</PackageProjectUrl>
+    <PackageProjectUrl></PackageProjectUrl>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Platforms>AnyCPU</Platforms>
-    <Authors>Lastgarriz</Authors>
-    <Company>Lastgarriz</Company>
+    <Authors></Authors>
+    <Company></Company>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
