@@ -8,7 +8,6 @@ All binaries have been removed, you can still continue to use this tool after co
 # <img src="https://i.imgur.com/deyzsBF.png" width="30" height="30"> Lastgarriz
 
 [![Release](https://img.shields.io/github/release/maxensas/lastgarriz.svg)](https://github.com/maxensas/lastgarriz/releases/) 
-[![Github all releases](https://img.shields.io/github/downloads/maxensas/lastgarriz/total.svg)](https://GitHub.com/maxensas/lastgarriz/releases/)
 
 ### What is Lastgarriz?
 Lastgarriz is a third-party tool that offers useful features for Hell Let Loose without interacting with it while playing.
