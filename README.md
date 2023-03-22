@@ -3,7 +3,7 @@
 This app has been silentely added to an internal black list by Team17. I had no message from them.   
 EAC used with HLL does not detect this app as a cheat but send related informations about running apps and/or screenshots when you play. 
   
-All releases have been removed, you can still continue to use this tool after compiling it yourself but this is at your own risk. See more information :  https://github.com/maxensas/lastgarriz/issues/1
+All binaries have been removed, you can still continue to use this tool after compiling it yourself but this is at your own risk. See more information :  https://github.com/maxensas/lastgarriz/issues/1
 
 # <img src="https://i.imgur.com/deyzsBF.png" width="30" height="30"> Lastgarriz
 
