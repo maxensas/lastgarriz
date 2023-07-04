@@ -1,13 +1,9 @@
-# <img src="https://user-images.githubusercontent.com/62154281/226650016-3ce2d4d0-c9ca-4e44-95c2-09e227840890.png" width="30" height="30"> I strongly recommend that you stop using lastgarriz.
-
-This app has been silentely added to an internal black list by Team17. I had no message from them.   
-EAC used with HLL does not detect this app as a cheat but send related informations about running apps and/or screenshots when you play. 
-  
-All binaries have been removed, you can still continue to use this tool after compiling it yourself but this is at your own risk. See more information :  https://github.com/maxensas/lastgarriz/issues/1
-
 # <img src="https://i.imgur.com/deyzsBF.png" width="30" height="30"> Lastgarriz
 
 [![Release](https://img.shields.io/github/release/maxensas/lastgarriz.svg)](https://github.com/maxensas/lastgarriz/releases/) 
+
+<img src="https://user-images.githubusercontent.com/62154281/226650016-3ce2d4d0-c9ca-4e44-95c2-09e227840890.png" width="15" height="15"> All binaries from previous releases has been blacklisted by Team17 using EAC service.  
+You can still continue to use this tool after compiling it yourself. See more information :  https://github.com/maxensas/lastgarriz/issues/1
 
 ### What is Lastgarriz?
 Lastgarriz is a third-party tool that offers useful features for Hell Let Loose without interacting with it while playing.
