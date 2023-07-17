@@ -2,9 +2,6 @@
 
 [![Release](https://img.shields.io/github/release/maxensas/lastgarriz.svg)](https://github.com/maxensas/lastgarriz/releases/) 
 
-<img src="https://user-images.githubusercontent.com/62154281/226650016-3ce2d4d0-c9ca-4e44-95c2-09e227840890.png" width="15" height="15"> All binaries from previous releases has been blacklisted by Team17 using EAC service.  
-You can still continue to use this tool after compiling it yourself. See more information :  https://github.com/maxensas/lastgarriz/issues/1
-
 ### What is Lastgarriz?
 Lastgarriz is a third-party tool that offers useful features for Hell Let Loose without interacting with it while playing.
 
@@ -29,6 +26,19 @@ Lastgarriz is a third-party tool that offers useful features for Hell Let Loose 
 ### Tool's future :
 * Lastgarriz will never play for you.
 * A server browser using steam API will probably be implemented.
+
+## How to use Lastgarriz
+The application will no longer be avaiable as downloadable release. Instead, you need to download the app code and build it yourself.
+
+### In three easy steps for ordinary users
+* Download/Install Microsoft .NET7 SDK (Windows x64) at : 
+https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+* Download the latest Lastgarriz code and unzip it into the install folder of your choice : https://github.com/maxensas/lastgarriz/archive/refs/heads/main.zip
+* Execute `Build_Application.bat` script to build the full app, done.
+
+### Why you need to build your own app
+New game studio have taken the lead in the HLL project with some lack of awareness on overlay apps and this has unfortunately resulted in game bans in March 2023. Those bans have mostly been removed as far as I know, full details here : https://github.com/maxensas/lastgarriz/issues/1
+Previous releases were reachable as downloadable binaries in order to be usable by everyone without requiring development knowledge or enforce a burdensome installation beforehand but the unique hash ID of these public binaries has been used by Team17 to generate EAC bans with the free service provided by Epic Games. You need to build the app yourself to avoid this, each binary built generates unique ID.
 
 ## For further informations :
 This program is free, open-source, licenced under BSD-3-Clause License and still in development.  
