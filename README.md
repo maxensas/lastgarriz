@@ -31,9 +31,10 @@ Lastgarriz is a third-party tool that offers useful features for Hell Let Loose 
 The application will no longer be avaiable as downloadable release. Instead, you need to download the app code and build it yourself.
 
 ### In three easy steps for ordinary users
-* Download/Install Microsoft .NET7 SDK (Windows x64) at : 
+* Download/Install Microsoft .NET7 SDK (Windows x64) at :  
 https://dotnet.microsoft.com/en-us/download/dotnet/7.0
-* Download the latest Lastgarriz code and unzip it into the install folder of your choice : https://github.com/maxensas/lastgarriz/archive/refs/heads/main.zip
+* Download the latest Lastgarriz code and unzip it into the install folder of your choice :  
+https://github.com/maxensas/lastgarriz/archive/refs/heads/main.zip
 * Execute `Build_Application.bat` script to build the full app, done.
 
 ### Why you need to build your own app
