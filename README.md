@@ -37,7 +37,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 * Execute `Build_Application.bat` script to build the full app, done.
 
 ### Why you need to build your own app
-New game studio have taken the lead in the HLL project with some lack of awareness on overlay apps and this has unfortunately resulted in game bans in March 2023. Those bans have mostly been removed as far as I know, full details here : https://github.com/maxensas/lastgarriz/issues/1
+New game studio have taken the lead in the HLL project with some lack of awareness on overlay apps and this has unfortunately resulted in game bans in March 2023. Those bans have mostly been removed as far as I know, full details here : https://github.com/maxensas/lastgarriz/issues/1  
 Previous releases were reachable as downloadable binaries in order to be usable by everyone without requiring development knowledge or enforce a burdensome installation beforehand but the unique hash ID of these public binaries has been used by Team17 to generate EAC bans with the free service provided by Epic Games. You need to build the app yourself to avoid this, each binary built generates unique ID.
 
 ## For further informations :
