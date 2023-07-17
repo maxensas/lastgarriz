@@ -7,12 +7,12 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace Lastgarriz
+namespace Run
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application, IDisposable
+    public partial class App : System.Windows.Application, IDisposable
     {
         private string logFilePath;
 
@@ -35,7 +35,7 @@ namespace Lastgarriz
             if (ex.InnerException != null)
                 RunException(ex.InnerException);
             else
-                Application.Current.Shutdown();
+                System.Windows.Application.Current.Shutdown();
         }
         private Mutex m_Mutex = null;
 
@@ -77,7 +77,7 @@ namespace Lastgarriz
 
             if (File.Exists(logFilePath)) File.Delete(logFilePath);
 
-            Application.Current.DispatcherUnhandledException += AppDispatcherUnhandledException;
+            System.Windows.Application.Current.DispatcherUnhandledException += AppDispatcherUnhandledException;
             base.OnStartup(e);
         }
 

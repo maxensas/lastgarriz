@@ -1,8 +1,8 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.Util.Hook;
+﻿using Run.Util;
+using Run.Util.Hook;
 using System.Windows.Input;
 
-namespace Lastgarriz.ViewModels.Command
+namespace Run.ViewModels.Command
 {
     public sealed class ConfigCommand
     {

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Threading;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Used to send messages in foreground.
@@ -14,16 +14,16 @@ namespace Lastgarriz.Util
         {
             void DoWork()
             {
-                MessageBox.Show(Application.Current.MainWindow, message, caption, button, icon);
+                MessageBox.Show(System.Windows.Application.Current.MainWindow, message, caption, button, icon);
             }
             //Application.Current.Dispatcher.Thread == Thread.CurrentThread
-            if (Application.Current.Dispatcher.CheckAccess())
+            if (System.Windows.Application.Current.Dispatcher.CheckAccess())
             {
                 DoWork();
             }
             else
             {
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                System.Windows.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                 new Action(() => { DoWork(); }));
             }
         }

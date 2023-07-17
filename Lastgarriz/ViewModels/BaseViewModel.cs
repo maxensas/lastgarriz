@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Lastgarriz.ViewModels
+namespace Run.ViewModels
 {
     /// <summary>
     /// Implementation of <see cref="INotifyPropertyChanged" /> to simplify models.

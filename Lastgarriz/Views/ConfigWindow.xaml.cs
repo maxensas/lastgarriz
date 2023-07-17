@@ -1,9 +1,9 @@
-﻿using Lastgarriz.ViewModels;
+﻿using Run.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Lastgarriz.Views
+namespace Run.Views
 {
     /// <summary>
     /// Interaction logic for ConfigWindow.xaml

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lastgarriz.ViewModels.Command
+namespace Run.ViewModels.Command
 {
     public class CompositeCommandParameter
     {

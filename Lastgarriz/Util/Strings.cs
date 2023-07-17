@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Contain all constant strings needed by the application.
@@ -39,9 +39,9 @@ namespace Lastgarriz.Util
         internal static class View
         {
             internal const string CONFIGURATION = "Configuration";
-            internal const string ARTILLERY = "Artillery";
-            internal const string ROCKET = "Rocket";
-            internal const string TASKBAR = "TaskBar";
+            internal const string TASKBAR = "Task";
+            internal const string ROCKET = "Window1";
+            internal const string ARTILLERY = "Window2";
         }
 
         internal static class Feature

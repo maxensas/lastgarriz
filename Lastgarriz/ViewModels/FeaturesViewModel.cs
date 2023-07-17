@@ -1,4 +1,4 @@
-﻿namespace Lastgarriz.ViewModels
+﻿namespace Run.ViewModels
 {
     public sealed class FeaturesViewModel : BaseViewModel
     {

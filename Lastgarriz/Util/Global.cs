@@ -1,11 +1,11 @@
-﻿using Lastgarriz.Util.Hook;
+﻿using Run.Util.Hook;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Centralize globals necessary for the application.

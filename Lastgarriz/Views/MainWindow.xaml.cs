@@ -1,11 +1,11 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.Util.Interop;
-using Lastgarriz.ViewModels;
+﻿using Run.Util;
+using Run.Util.Interop;
+using Run.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Lastgarriz
+namespace Run
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -54,7 +54,7 @@ namespace Lastgarriz
 
             if (Global.Terminate)
             {
-                Application.Current.Shutdown();
+                System.Windows.Application.Current.Shutdown();
             }
         }
     }

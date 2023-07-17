@@ -9,10 +9,10 @@ using System.Security.Principal;
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
-using Lastgarriz.Util.Interop;
+using Run.Util.Interop;
 using TesseractOCR;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Centralize generalist methods necessary for the application.

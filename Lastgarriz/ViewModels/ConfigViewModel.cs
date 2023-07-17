@@ -1,11 +1,11 @@
-﻿using Lastgarriz.Models.Serializable;
-using Lastgarriz.Util;
-using Lastgarriz.Util.Hook;
-using Lastgarriz.ViewModels.Command;
+﻿using Run.Models.Serializable;
+using Run.Util;
+using Run.Util.Hook;
+using Run.ViewModels.Command;
 using System;
 using System.Windows;
 
-namespace Lastgarriz.ViewModels
+namespace Run.ViewModels
 {
     public sealed class ConfigViewModel : BaseViewModel
     {
@@ -232,7 +232,7 @@ namespace Lastgarriz.ViewModels
             if (!DataManager.Instance.InitSettings())
             {
                 MessageBox.Show("Closing application...", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                Application.Current.Shutdown();
+                System.Windows.Application.Current.Shutdown();
                 //Application.Current.MainWindow.Close();
                 return;
             }

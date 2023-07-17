@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Contain specific area data (HLL Server browser) used for image cropping / OCR.

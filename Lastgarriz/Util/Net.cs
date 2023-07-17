@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     // not in separated cs file
     internal enum Client : ushort
@@ -104,47 +104,32 @@ namespace Lastgarriz.Util
             }
             catch (HttpRequestException)
             {
-                /*
-                var excep = new HttpRequestException("The request encountered an exception.", ex, ex.StatusCode);
-                throw excep;
-                */
+                // throw new HttpRequestException("The request encountered an exception.", ex, ex.StatusCode);
                 throw;
             }
             catch (TaskCanceledException ex)
             {
                 if (ex.InnerException is TimeoutException)
                 {
-                    var excep = new TimeoutException("The request was canceled due to the configured timeout.", ex);
-                    throw excep;
+                    throw new TimeoutException("The request was canceled due to the configured timeout.", ex);
                 }
-                else
-                {
-                    var excep = new TaskCanceledException("A task was canceled.", ex);
-                    throw excep;
-                }
+                throw new TaskCanceledException("A task was canceled.", ex);
             }
             catch (Exception ex) // not done : ArgumentNullException / InvalidOperationException / AggregateException
             {
                 if ((ex.InnerException is ThreadAbortException) || ex.Message.ToLowerInvariant().Contains("thread", StringComparison.Ordinal))
                 {
-                    var excep = new Exception("Abort called before the end, Application thread error", ex); // old way
-                    throw excep;
+                    throw new Exception("Abort called before the end, Application thread error", ex); // old way
                 }
-                else if (ex.InnerException is TimeoutException)
+                if (ex.InnerException is TimeoutException)
                 {
-                    var excep = new TimeoutException("The request was canceled due to the configured timeout (inner).", ex);
-                    throw excep;
+                    throw new TimeoutException("The request was canceled due to the configured timeout (inner).", ex);
                 }
-                else if (ex.InnerException is TaskCanceledException)
+                if (ex.InnerException is TaskCanceledException)
                 {
-                    var excep = new TaskCanceledException("A task was canceled (inner).", ex);
-                    throw excep;
+                    throw new TaskCanceledException("A task was canceled (inner).", ex);
                 }
-                else
-                {
-                    var exep = new Exception("Unidentified exception.", ex);
-                    throw exep;
-                }
+                throw new Exception("Unidentified exception.", ex);
             }
             return result;
         }

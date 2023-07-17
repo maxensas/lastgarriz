@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace Lastgarriz.ViewModels.Command
+namespace Run.ViewModels.Command
 {
     public sealed class AdvancedInvokeCommandAction : TriggerAction<DependencyObject>
     {

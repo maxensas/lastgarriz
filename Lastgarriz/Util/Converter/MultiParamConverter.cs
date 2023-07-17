@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Lastgarriz.Util.Converter
+namespace Run.Util.Converter
 {
     internal class MultiParamConverter : IMultiValueConverter
     {

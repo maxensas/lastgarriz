@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Lastgarriz.Util.Helper
+namespace Run.Util.Helper
 {
     internal static class Debug
     {
@@ -10,7 +10,7 @@ namespace Lastgarriz.Util.Helper
         internal static void StartTimer()
         {
 #if DEBUG
-            if (Application.Current.Dispatcher.CheckAccess())
+            if (System.Windows.Application.Current.Dispatcher.CheckAccess())
             {
                 if (Global.DEBUG_TIMERS)
                 {
@@ -45,7 +45,7 @@ namespace Lastgarriz.Util.Helper
         internal static void StopTimer(string message)
         {
 #if DEBUG
-            if (Application.Current.Dispatcher.CheckAccess())
+            if (System.Windows.Application.Current.Dispatcher.CheckAccess())
             {
                 if (Global.DEBUG_TIMERS)
                 {

@@ -2,7 +2,7 @@
 using Utf8Json;
 using Utf8Json.Resolvers;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Used for Serialization with Utf8Json library

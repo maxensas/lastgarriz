@@ -3,12 +3,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Lastgarriz.Util.Interop;
+using Run.Util.Interop;
 using System.Drawing.Drawing2D;
 using System.IO;
 using TesseractOCR;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Provides methods to capture screen or a particular window, crop image, check hll map, save to file.

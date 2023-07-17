@@ -1,6 +1,6 @@
-﻿using Lastgarriz.Models.Serializable;
-using Lastgarriz.Util.Interop;
-using Lastgarriz.Views;
+﻿using Run.Models.Serializable;
+using Run.Util.Interop;
+using Run.Views;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Threading;
 
-namespace Lastgarriz.Util.Hook
+namespace Run.Util.Hook
 {
     /// <summary>
     /// Interaction logic for WndProcService.cs

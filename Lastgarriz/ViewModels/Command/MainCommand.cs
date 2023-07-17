@@ -1,14 +1,14 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.Util.Hook;
-using Lastgarriz.Util.Interop;
-using Lastgarriz.Views;
+﻿using Run.Util;
+using Run.Util.Hook;
+using Run.Util.Interop;
+using Run.Views;
 using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace Lastgarriz.ViewModels.Command
+namespace Run.ViewModels.Command
 {
     public sealed class MainCommand
     {
@@ -45,10 +45,10 @@ namespace Lastgarriz.ViewModels.Command
         {
             static void DoWork()
             {
-                if (Application.Current.MainWindow is not null)
+                if (System.Windows.Application.Current.MainWindow is not null)
                 {
-                    Application.Current.MainWindow.IsEnabled = false;
-                    Application.Current.MainWindow.Close();
+                    System.Windows.Application.Current.MainWindow.IsEnabled = false;
+                    System.Windows.Application.Current.MainWindow.Close();
                     GC.Collect(); // find finalizable objects
                     GC.WaitForPendingFinalizers(); // wait until finalizers executed
                     GC.Collect(); // collect finalized objects
@@ -63,13 +63,13 @@ namespace Lastgarriz.ViewModels.Command
                 }
             }
 
-            if (Application.Current.Dispatcher.CheckAccess())
+            if (System.Windows.Application.Current.Dispatcher.CheckAccess())
             {
                 DoWork();
             }
             else
             {
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { DoWork(); }));
+                System.Windows.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { DoWork(); }));
             }
         }
 
@@ -99,7 +99,7 @@ namespace Lastgarriz.ViewModels.Command
                 .Append("Some features work as overlay, please consider reading 'Black Matter' Term of uses first before using this software.").AppendLine().AppendLine()
                 .Append("This software is open source and developed for free.").AppendLine().AppendLine()
                 .Append("If you like the program and want more features, you can contribute with pull requests or new issues describing your fresh ideas.");
-            MessageBox.Show(Application.Current.MainWindow, message.ToString(), "Lastgarriz by maxensas");
+            MessageBox.Show(System.Windows.Application.Current.MainWindow, message.ToString(), "Lastgarriz by maxensas");
         }
 
         private static bool CanCheckVersion(object commandParameter)
@@ -132,8 +132,8 @@ namespace Lastgarriz.ViewModels.Command
             {
                 NativeWin.SendMessage(pHwnd, NativeWin.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
             }
-            Application.Current.MainWindow.IsEnabled = false;
-            Application.Current.MainWindow.Close();
+            System.Windows.Application.Current.MainWindow.IsEnabled = false;
+            System.Windows.Application.Current.MainWindow.Close();
             ConfigWindow configWin = new();
             configWin.Name = Strings.View.CONFIGURATION;
             configWin.Show();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Lastgarriz.Util.Hook
+namespace Run.Util.Hook
 {
     internal sealed class SpongeWindow : NativeWindow
     {

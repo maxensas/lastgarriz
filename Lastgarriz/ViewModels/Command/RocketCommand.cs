@@ -1,11 +1,11 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.Util.Interop;
+﻿using Run.Util;
+using Run.Util.Interop;
 using System;
 using System.Threading;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Lastgarriz.ViewModels.Command
+namespace Run.ViewModels.Command
 {
     public sealed class RocketCommand
     {

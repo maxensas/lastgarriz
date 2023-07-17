@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 
-namespace Lastgarriz.Util.Interop
+namespace Run.Util.Interop
 {
     /// <summary>
     /// Helper class containing User32, KERNEL32, GDI32 API functions

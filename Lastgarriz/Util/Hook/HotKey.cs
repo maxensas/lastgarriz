@@ -1,12 +1,12 @@
-﻿using Lastgarriz.Models.Serializable;
-using Lastgarriz.Util.Interop;
-using Lastgarriz.ViewModels;
+﻿using Run.Models.Serializable;
+using Run.Util.Interop;
+using Run.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
-namespace Lastgarriz.Util.Hook
+namespace Run.Util.Hook
 {
     /// <summary>
     /// Contain all methods needed to manage hotkey bindings.

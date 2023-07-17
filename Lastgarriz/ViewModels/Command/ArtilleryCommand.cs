@@ -1,7 +1,7 @@
-﻿using Lastgarriz.Util;
+﻿using Run.Util;
 using System.Windows.Input;
 
-namespace Lastgarriz.ViewModels.Command
+namespace Run.ViewModels.Command
 {
     public sealed class ArtilleryCommand
     {

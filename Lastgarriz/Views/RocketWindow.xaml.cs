@@ -1,8 +1,8 @@
-﻿using Lastgarriz.ViewModels;
+﻿using Run.ViewModels;
 using System;
 using System.Windows;
 
-namespace Lastgarriz.Views
+namespace Run.Views
 {
     /// <summary>
     /// Interaction logic for RocketWindow.xaml

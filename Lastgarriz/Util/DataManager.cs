@@ -2,9 +2,9 @@
 using System.IO;
 using System.Text;
 using System.Windows;
-using Lastgarriz.Models.Serializable;
+using Run.Models.Serializable;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Used to manage application data.
@@ -114,8 +114,8 @@ namespace Lastgarriz.Util
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Application.Current.MainWindow, ex.Message, "Closing application...");
-                Application.Current.Shutdown();
+                MessageBox.Show(System.Windows.Application.Current.MainWindow, ex.Message, "Closing application...");
+                System.Windows.Application.Current.Shutdown();
                 return null;
             }
             finally
@@ -147,7 +147,7 @@ namespace Lastgarriz.Util
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Application.Current.MainWindow, ex.Message, "Error: new json file can not be saved");
+                MessageBox.Show(System.Windows.Application.Current.MainWindow, ex.Message, "Error: new json file can not be saved");
                 return false;
             }
             return true;
@@ -192,14 +192,14 @@ namespace Lastgarriz.Util
                     catch (Exception ex)
                     {
                         writer.Write(configBackup); // Backup
-                        MessageBox.Show(Application.Current.MainWindow, ex.Message, "Error: new file can not be serialized");
+                        MessageBox.Show(System.Windows.Application.Current.MainWindow, ex.Message, "Error: new file can not be serialized");
 
                         return false;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(Application.Current.MainWindow, ex.Message, "Error while saving new file");
+                    MessageBox.Show(System.Windows.Application.Current.MainWindow, ex.Message, "Error while saving new file");
                     return false;
                 }
                 finally

@@ -1,7 +1,7 @@
-﻿using Lastgarriz.Util.Hook;
-using Lastgarriz.Util.Interop;
-using Lastgarriz.ViewModels;
-using Lastgarriz.Views;
+﻿using Run.Util.Hook;
+using Run.Util.Interop;
+using Run.ViewModels;
+using Run.Views;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -11,7 +11,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace Lastgarriz.Util
+namespace Run.Util
 {
     /// <summary>
     /// Contain all tak objects and methods needed by the application.
@@ -458,7 +458,7 @@ namespace Lastgarriz.Util
                         {
                             static void DoWork()
                             {
-                                MessageBoxResult result = MessageBox.Show(Application.Current.MainWindow,
+                                MessageBoxResult result = MessageBox.Show(System.Windows.Application.Current.MainWindow,
                                     "A new version of Lastgarriz has been released, update now ?", "Lastgarriz by maxensas", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                                 if (result == MessageBoxResult.Yes)
@@ -468,13 +468,13 @@ namespace Lastgarriz.Util
                                 }
                             }
 
-                            if (Application.Current.Dispatcher.CheckAccess())
+                            if (System.Windows.Application.Current.Dispatcher.CheckAccess())
                             {
                                 DoWork();
                             }
                             else
                             {
-                                await Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                                await System.Windows.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                                 new Action(() => { DoWork(); }));
                             }
                         }
@@ -486,7 +486,7 @@ namespace Lastgarriz.Util
                 }
                 catch (Exception ex)
                 {
-                    WindowMessage.SendForeground(String.Format("{0} Error:  {1}\r\n\r\n{2}\r\n\r\n", ex.Source, ex.Message, ex.StackTrace), "Update checker task encountered an error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    WindowMessage.SendForeground(string.Format("{0} Error:  {1}\r\n\r\n{2}\r\n\r\n", ex.Source, ex.Message, ex.StackTrace), "Update checker task encountered an error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             );

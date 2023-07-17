@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Lastgarriz.Models.Serializable
+namespace Run.Models.Serializable
 {
     [DataContract(Name = "shortcuts")]
     internal sealed class ConfigShortcut

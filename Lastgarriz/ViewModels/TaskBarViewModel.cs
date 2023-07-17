@@ -1,7 +1,7 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.ViewModels.Command;
+﻿using Run.Util;
+using Run.ViewModels.Command;
 
-namespace Lastgarriz.ViewModels
+namespace Run.ViewModels
 {
     public sealed class TaskBarViewModel : BaseViewModel
     {

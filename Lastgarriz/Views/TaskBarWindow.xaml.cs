@@ -1,10 +1,10 @@
-﻿using Lastgarriz.Util.Interop;
-using Lastgarriz.ViewModels;
+﻿using Run.Util.Interop;
+using Run.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Lastgarriz.Views
+namespace Run.Views
 {
     /// <summary>
     /// Interaction logic for TaskBarWindow.xaml

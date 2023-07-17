@@ -1,10 +1,10 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.ViewModels.Command;
+﻿using Run.Util;
+using Run.ViewModels.Command;
 using System;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Lastgarriz.ViewModels
+namespace Run.ViewModels
 {
     public sealed class RocketViewModel : BaseViewModel
     {

@@ -1,8 +1,8 @@
-﻿using Lastgarriz.Models;
-using Lastgarriz.Util;
-using Lastgarriz.ViewModels.Command;
+﻿using Run.Models;
+using Run.Util;
+using Run.ViewModels.Command;
 
-namespace Lastgarriz.ViewModels
+namespace Run.ViewModels
 {
     public sealed class ArtilleryViewModel : BaseViewModel
     {

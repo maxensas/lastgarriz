@@ -1,4 +1,4 @@
-﻿namespace Lastgarriz.Models
+﻿namespace Run.Models
 {
     internal sealed class ArtiMetrics
     {

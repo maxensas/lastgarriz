@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Lastgarriz.Models.Serializable
+namespace Run.Models.Serializable
 {
     [DataContract()]
     internal sealed class ConfigData

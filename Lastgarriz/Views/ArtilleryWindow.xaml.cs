@@ -1,10 +1,10 @@
-﻿using Lastgarriz.Util;
-using Lastgarriz.ViewModels;
+﻿using Run.Util;
+using Run.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Lastgarriz.Views
+namespace Run.Views
 {
     /// <summary>
     /// Interaction logic for ArtilleryWindow.xaml
