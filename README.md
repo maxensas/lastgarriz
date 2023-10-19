@@ -6,8 +6,8 @@
 Lastgarriz is a third-party tool that offers useful features for Hell Let Loose without interacting with it while playing.
 
 ### Project is now archived.
-Using the tool now explicitly contradicts the game's terms of use (2.1d)  
-https://store.steampowered.com/eula/686810_eula_0?eulaLang=english  
+Use of the tool is now contradictory with the updated game's terms of use (2.1d)  
+EULA : https://store.steampowered.com/eula/686810_eula_0?eulaLang=english  
 
 ### Important and please note:  
 The tool in his state does not contain any countermeasures related to methods taking desktop screenshots allowing the detection of active overlay with a good sample and image analysis after. 
