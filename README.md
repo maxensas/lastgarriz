@@ -5,6 +5,14 @@
 ### What is Lastgarriz?
 Lastgarriz is a third-party tool that offers useful features for Hell Let Loose without interacting with it while playing.
 
+### Project is now archived.
+Using the tool now explicitly contradicts the game's terms of use (2.1d)  
+https://store.steampowered.com/eula/686810_eula_0?eulaLang=english  
+
+### Important and please note:  
+The tool in his state does not contain any countermeasures related to methods taking desktop screenshots allowing the detection of active overlay with a good sample and image analysis after. 
+Use it at your own risk.
+
 ## Features provided :
 * Quick access to settings in order to modify hotkeys.
 * A feature that allows you to automatically join the server queue when full.
@@ -23,10 +31,6 @@ Lastgarriz is a third-party tool that offers useful features for Hell Let Loose 
 * Rocket crosshair feature provide a training tool very useful for finding landmarks, it will never provide skill.
 * This tool allocates 90MB of memory in normal use and never more than 200MB, it does not negatively affect in-game FPS.
 
-### Tool's future :
-* Lastgarriz will never play for you.
-* A server browser using steam API will probably be implemented.
-
 ## How to use Lastgarriz
 The application will no longer be avaiable as downloadable release. Instead, you need to download the app code and build it yourself.
 
@@ -42,7 +46,7 @@ New game studio have taken the lead in the HLL project with some lack of awarene
 Previous releases were reachable as downloadable binaries in order to be usable by everyone without requiring development knowledge or enforce a burdensome installation beforehand but the unique hash ID of these public binaries has been used by Team17 to generate EAC bans with the free service provided by Epic Games. You need to build the app yourself to avoid this, each binary built generates unique ID.
 
 ## For further informations :
-This program is free, open-source, licenced under BSD-3-Clause License and still in development.  
+This program is free, open-source, licenced under BSD-3-Clause License  
 
 ### Privacy policy for Lastgarriz
 Lastgarriz isn't affiliated with or endorsed by Black matter or Team17 in any way. 
